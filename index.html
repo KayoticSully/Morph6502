@@ -8,19 +8,17 @@
     <meta name="author" content="Ryan Sullivan" />
     
     <title>
-        Impress Compiler
+        M o r p h 6 5 0 2
     </title>
     
-    <!--
-        CSS
-    -->
+    <!-- CSS -->
     <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700|Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
     <link href="css/jquery-linedtextarea.css" rel="stylesheet" />
     <link href="css/morph.css" rel="stylesheet" />
     
-    <!-- Icons -->
-    <link rel="shortcut icon" href="favicon.png" />
-    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <!--
+        JavaScript is loaded at bottom of page
+    -->
 </head>
 <body class="impress-not-supported">
     <!-- 
@@ -242,7 +240,6 @@
                             </li>
                         </ul>
                     </li>
-                    
                 </ul>
             </div>
         </div>
@@ -253,24 +250,15 @@
         </div>
     </div>
     
-    <!-- Load Display Scripts -->
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- Load Libraries -->
     <script src="impress/js/impress.js"></script>
-    <script src="js/jquery-linedtextarea.js"></script>
-    <script>
-        var a = impress();
-        a.init();
-        
-        $(".lined").linedtextarea();
-        
-        if(window.location.hash == '' || window.location.hash == '#/step-1')
-        {
-            setTimeout(a.next, 500);
-            
-            setTimeout(function(){
-                a.next();
-            }, 2500);
-        }
-    </script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="javascript/jquery-linedtextarea.js"></script>
+    
+    <!-- Load Project Files -->
+    
+    
+    <!-- Lets Get Started! -->
+    <script src="javascript/init.js"></script>
 </body>
 </html>
