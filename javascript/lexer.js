@@ -20,25 +20,40 @@ var Lexer = function() {
     * @param {String} source The source code to convert into tokens
     * @returns {Array} An array of tokens
     */
-    function Lexer() {
+    function Lexer(source) {
         // First trim the source
         var src = trim(source);
         
         // Split on New Line so we can track line numbers
         const lines = src.split('\n');
-        return lines;
+        return lexLines(lines);
     }
 
     //----------------------------
     // Helper functions that ONLY
     // Lex is allowed to use
     //----------------------------
-    function parseLines() {
+    /**
+     * @name lexLines
+     * @param {Array} lines All of the lines from the source code
+     * @returns {Array} Token stream
+     */
+    function lexLines(lines) {
+        var tokenStream = new Array();
         
+        for(index in lines) {
+            var lineTokens = lexLine(lines[index]);
+            tokenStream = tokenStream.concat(lineTokens);
+        }
+        
+        return tokenStream;
     }
     
-    function parseLine() {
-        console.log('line');
+    /**
+     * @name lexLine
+     * @param {String} line A single like from the source code
+     */
+    function lexLine(line) {
     }
     
     //----------------------------
