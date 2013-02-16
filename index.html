@@ -1,0 +1,276 @@
+<html lang="en">
+<head>
+    <!-- Meta -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="description" content="" />
+    <meta name="author" content="Ryan Sullivan" />
+    
+    <title>
+        Impress Compiler
+    </title>
+    
+    <!--
+        CSS
+    -->
+    <link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700|Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+    <link href="css/jquery-linedtextarea.css" rel="stylesheet" />
+    <link href="css/morph.css" rel="stylesheet" />
+    
+    <!-- Icons -->
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+<body class="impress-not-supported">
+    <!-- 
+        Just incase someone's being lame
+    -->
+    <div class="fallback-message">
+        <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+        <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+    </div>
+    
+    <!--
+        Start Impress Presentation
+    -->
+    <div id="impress">
+        
+        <div class="step" data-x="0" data-y="0" data-z="-4000" data-scale="1">
+            <!-- This element is empty since the first frame is a blank page -->
+        </div>
+        
+        <!--
+            Title Frame
+        -->
+        <div id="title" class="step" data-x="0" data-y="0" data-scale="1">
+            <strong>Morph</strong><span class="subtxt">6502</span>
+        </div>
+        
+        <!--
+            Code Entry and Grammar Description
+        -->
+        <div id="code" class="step fade clearfix" data-x="0" data-y="430" data-scale="1">
+            <!--
+                This element is for program entry. It gets spruced up a bit through a
+                jQuery plugin to add line numbers.
+            -->
+            <textarea id="input" class="lined" wrap="off" placeholder="// Type your code here"></textarea>
+            
+            <!--
+                Here a grammar list is provided on the page for reference
+            -->
+            <div id="grammar">
+                <ul>
+                    
+                    <!-- Program -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            Program
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== Statement $
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Statement -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            Statement
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== P ( Expr )
+                            </li>
+                            <li>
+                                ::== Id = Expr
+                            </li>
+                            <li>
+                                ::== VarDecl
+                            </li>
+                            <li>
+                                ::== { StatementList }
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Statement List -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            StatementList
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== Statement StatementList
+                            </li>
+                            <li>
+                                ::== &#949;
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Expression -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            Expr
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== IntExpr
+                            </li>
+                            <li>
+                                ::== CharExpr
+                            </li>
+                            <li>
+                                ::== Id
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Integer Expression -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            IntExpr
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== digit op Expr
+                            </li>
+                            <li>
+                                ::== digit
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Character Expression -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            CharExpr
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== " CharList "
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Character List -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            CharList
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== Char CharList
+                            </li>
+                            <li>
+                                ::== &#949;
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Variable Declaration -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            VarDecl
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== Type Id
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Type -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            Type
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== int | char
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Identifier -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            Id
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== Char
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Character -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            Char
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== a | b | c ... z
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Digit -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            digit
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== 1 | 2 | 3 ... 9 | 0
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!-- Operation -->
+                    <li class="rule clearfix">
+                        <div class="production">
+                            op
+                        </div>
+                        <ul class="expressions">
+                            <li>
+                                ::== &#43; | &#45;
+                            </li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Output Elements -->
+        <div class="step" data-x="0" data-y="1130" data-rotation-z="45" data-scale="2">
+            Lexing...
+        </div>
+    </div>
+    
+    <!-- Load Display Scripts -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="impress/js/impress.js"></script>
+    <script src="js/jquery-linedtextarea.js"></script>
+    <script>
+        var a = impress();
+        a.init();
+        
+        $(".lined").linedtextarea();
+        
+        if(window.location.hash == '' || window.location.hash == '#/step-1')
+        {
+            setTimeout(a.next, 500);
+            
+            setTimeout(function(){
+                a.next();
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
