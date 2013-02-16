@@ -49,16 +49,24 @@
             Code Entry and Grammar Description
         -->
         <div id="code" class="step fade clearfix" data-x="0" data-y="430" data-scale="1">
-            <!--
-                This element is for program entry. It gets spruced up a bit through a
-                jQuery plugin to add line numbers.
-            -->
-            <textarea id="input" class="lined" wrap="off" placeholder="// Type your code here"></textarea>
+            <div id="controls">
+                <!--
+                    This element is for program entry. It gets spruced up a bit through a
+                    jQuery plugin to add line numbers.
+                -->
+                <textarea id="input" class="lined" wrap="off" placeholder="// Type your code here"></textarea>
+            </div>
             
             <!--
                 Here a grammar list is provided on the page for reference
             -->
             <div id="grammar">
+                <!--
+                    Action buttons
+                -->
+                <div id="actions">
+                    <button class="minimal" onclick="compile();">Compile</button>
+                </div>
                 <ul>
                     
                     <!-- Program -->
@@ -244,8 +252,8 @@
             </div>
         </div>
         
-        <!-- Output Elements -->
-        <div class="step" data-x="0" data-y="1130" data-rotation-z="45" data-scale="2">
+        <!-- Status Elements -->
+        <div class="step status" data-x="0" data-y="1210" data-z="100" data-scale="2">
             Lexing...
         </div>
     </div>
