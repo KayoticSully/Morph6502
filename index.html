@@ -76,7 +76,7 @@
                         </div>
                         <ul class="expressions">
                             <li>
-                                ::== Statement $
+                                ::== Statement <b>$</b>
                             </li>
                         </ul>
                     </li>
@@ -88,16 +88,16 @@
                         </div>
                         <ul class="expressions">
                             <li>
-                                ::== P ( Expr )
+                                ::== <b>P</b> <b>(</b> Expr <b>)</b>
                             </li>
                             <li>
-                                ::== Id = Expr
+                                ::== Id <b>=</b> Expr
                             </li>
                             <li>
                                 ::== VarDecl
                             </li>
                             <li>
-                                ::== { StatementList }
+                                ::== <b>{</b> StatementList <b>}</b>
                             </li>
                         </ul>
                     </li>
@@ -112,7 +112,7 @@
                                 ::== Statement StatementList
                             </li>
                             <li>
-                                ::== &#949;
+                                ::== <b>&#949;</b>
                             </li>
                         </ul>
                     </li>
@@ -157,7 +157,7 @@
                         </div>
                         <ul class="expressions">
                             <li>
-                                ::== " CharList "
+                                ::== <b>"</b> CharList <b>"</b>
                             </li>
                         </ul>
                     </li>
@@ -172,7 +172,7 @@
                                 ::== Char CharList
                             </li>
                             <li>
-                                ::== &#949;
+                                ::== <b>&#949;</b>
                             </li>
                         </ul>
                     </li>
@@ -196,7 +196,7 @@
                         </div>
                         <ul class="expressions">
                             <li>
-                                ::== int | char
+                                ::== <b>int</b> | <b>char</b>
                             </li>
                         </ul>
                     </li>
@@ -220,7 +220,7 @@
                         </div>
                         <ul class="expressions">
                             <li>
-                                ::== a | b | c ... z
+                                ::== <b>a</b> | <b>b</b> | <b>c</b> ... <b>z</b>
                             </li>
                         </ul>
                     </li>
@@ -232,7 +232,7 @@
                         </div>
                         <ul class="expressions">
                             <li>
-                                ::== 1 | 2 | 3 ... 9 | 0
+                                ::== <b>1</b> | <b>2</b> | <b>3</b> ... <b>9</b> | <b>0</b>
                             </li>
                         </ul>
                     </li>
@@ -244,7 +244,7 @@
                         </div>
                         <ul class="expressions">
                             <li>
-                                ::== &#43; | &#45;
+                                ::== <b>&#43;</b> | <b>&#45;</b>
                             </li>
                         </ul>
                     </li>
@@ -264,7 +264,9 @@
     <script src="javascript/jquery-linedtextarea.js"></script>
     
     <!-- Load Project Files -->
-    
+    <script src="javascript/utils.js"></script>
+    <script src="javascriot/Tokens.js"></script>
+    <script src="javascript/Lexer.js"></script>
     
     <!-- Lets Get Started! -->
     <script src="javascript/init.js"></script>
