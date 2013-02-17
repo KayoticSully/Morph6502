@@ -15,6 +15,9 @@
 // inner workings
 //----------------------------
 var Lexer = function() {
+    
+    var currentLine = 1;
+    
     /**
     * @name Lexer
     * @param {String} source The source code to convert into tokens
@@ -23,37 +26,53 @@ var Lexer = function() {
     function Lexer(source) {
         // First trim the source
         var src = trim(source);
-        
-        // Split on New Line so we can track line numbers
-        const lines = src.split('\n');
-        return lexLines(lines);
-    }
-
-    //----------------------------
-    // Helper functions that ONLY
-    // Lex is allowed to use
-    //----------------------------
-    /**
-     * @name lexLines
-     * @param {Array} lines All of the lines from the source code
-     * @returns {Array} Token stream
-     */
-    function lexLines(lines) {
-        var tokenStream = new Array();
-        
-        for(index in lines) {
-            var lineTokens = lexLine(lines[index]);
-            tokenStream = tokenStream.concat(lineTokens);
-        }
-        
-        return tokenStream;
+        // start processing source
+        var tokens = process(src);
+        // check for errors
+        return tokens;
     }
     
-    /**
-     * @name lexLine
-     * @param {String} line A single like from the source code
-     */
-    function lexLine(line) {
+    function process(src) {
+        // get next token info
+        var token = checkToken(src);
+        var length = 1;
+        
+        // increment line number at
+        // the end of each line
+        if(token === CT_NEW_LINE) {
+            currentLine++;
+        }
+        // if an error was encountered
+        else if(token == null) {
+            console.log(currentLine + " : " + "Unknown token encountered");
+        }
+        // must be identified token
+        else
+        {
+            length = Tokens[token].length;
+        }
+        
+        
+        if(src.length > 1) {
+            return new Array(token).concat(process(src.substr(length))); // YAY RECURSION!
+        } else {
+            return token;// return token
+        }
+    }
+    
+    function checkToken(str) {
+        // for each possible token
+        for(token in Tokens) {
+            // test to see if the next token is this one
+            var pattern = Tokens[token].pattern;
+            
+            if(pattern.test(str)) {
+                return token;
+            }
+        }
+        
+        // no supported token was found
+        return null;
     }
     
     //----------------------------

@@ -42,5 +42,7 @@ function compile() {
     //var lexer = new Lexer();
     var lexed = lexer(source);
     
-    alert(JSON.stringify(lexed));
+    for(token in lexed) {
+        console.log(lexed[token]);
+    }
 }
