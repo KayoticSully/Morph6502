@@ -192,6 +192,20 @@ body {
     display: inline-block;
 }
 
+.error {
+    color: #FF4040;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+button {
+    -webkit-transition: opacity .3s ease-in-out;
+    -moz-transition: opacity .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out;
+}
+
 /*
     Modifications to the line-number jQuery plugin
 */
@@ -285,6 +299,14 @@ body {
 /*
     Grammar Display
 */
+
+#productions, #output {
+    -webkit-transition: opacity .3s ease-in-out;
+    -moz-transition: opacity .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out;
+    position: absolute;
+}
+
 #grammar {
     font-family: "Inconsolata", monospace;
     float: left;
@@ -292,6 +314,7 @@ body {
     font-size: 17px;
     width: 44%;
     text-align: left;
+    position: relative;
 }
 
 #grammar .rule {

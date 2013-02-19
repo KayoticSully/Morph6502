@@ -65,10 +65,10 @@
                     Action buttons
                 -->
                 <div id="actions">
-                    <button class="minimal" onclick="compile();">Compile</button>
+                    <button id="compile" class="minimal" onclick="compile();">Compile</button>
+                    <button id="clearOutput" class="minimal hidden" onclick="clearOutput()">Clear Output</button>
                 </div>
-                <ul>
-                    
+                <ul id="productions">
                     <!-- Program -->
                     <li class="rule clearfix">
                         <div class="production">
@@ -249,6 +249,9 @@
                         </ul>
                     </li>
                 </ul>
+                <ul id="output" class="hidden">
+                    
+                </ul>
             </div>
         </div>
         
@@ -263,12 +266,16 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="javascript/jquery-linedtextarea.js"></script>
     
-    <!-- Load Project Files -->
+    <!-- Load Helper Files -->
     <script src="javascript/utils.js"></script>
+    <script src="javascript/output.js"></script>
+    
+    <!-- Load Project Files -->
+    <script src="javascript/compile.js"></script>
     <script src="javascript/Tokens.js"></script>
     <script src="javascript/Lexer.js"></script>
     
     <!-- Lets Get Started! -->
-    <script src="javascript/init.js"></script>
+    <script src="javascript/app.js"></script>
 </body>
 </html>

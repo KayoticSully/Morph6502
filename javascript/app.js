@@ -1,20 +1,28 @@
 //===================================
-// Init.js
+// app.js
 //-----------------------------------
 // Initializes page and loads main
 // functions
 //-----------------------------------
 // Author: Ryan Sullivan
 // Created: 2/16/2013
-// Updated: 2/16/2013
+// Updated: 2/19/2013
 //===================================
 
 var api,
     lexer;
 
-$(document).ready(function(){
+$(document).ready(init);
+
+/**
+ * @name init
+ * 
+ * @description initializes Morph6502
+ */
+function init() {
     api = impress();
     api.init();
+    setupKeyboardEvents();
     
     // Start animations while everything loads in
     if(window.location.hash == '' || window.location.hash == '#/step-1')
@@ -31,18 +39,27 @@ $(document).ready(function(){
     
     // Load Lexer
     lexer = new Lexer();
-});
+}
 
-function compile() {
-    // First we need to get the input from the textarea
-    var input   = document.getElementById('input');
-    var source  = input.value;
+/**
+ * @name setupKeyboardEvents
+ * 
+ * @description Enables all special keyboard events that the interface requires
+ */
+function setupKeyboardEvents() {
+    $('#input').on('keydown', specialKeys);
+}
+
+/**
+ * @name specialKeys
+ *
+ * @description Handles keyboard events
+ */
+function specialKeys(event) {
+    const TABKEY = 9;
     
-    
-    //var lexer = new Lexer();
-    var lexed = lexer(source);
-    
-    for(token in lexed) {
-        console.log(lexed[token]);
+    if(event.keyCode == TABKEY) {
+        event.preventDefault();
+        this.value += "  ";
     }
 }

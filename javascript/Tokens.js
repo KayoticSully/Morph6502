@@ -6,7 +6,7 @@
 //-----------------------------------
 // Author: Ryan Sullivan
 // Created: 2/16/2013
-// Updated: 2/16/2013
+// Updated: 2/19/2013
 //===================================
 
 //-----------------------------------
@@ -35,6 +35,11 @@ const
 //-----------------------------------
 // All Tokens / Terminals RegEx
 //-----------------------------------
+// RegEx's use the start symbol "^" since
+// each regex will be run to find the token
+// at the start of the source string.  No
+// end symbol "$" is used since there may
+// be source code after the symbol.
 const
     R_INT             = /^int/,
     R_CHAR            = /^char/,
@@ -51,8 +56,8 @@ const
     R_PLUS            = /^[+]/,
     R_MINUS           = /^[-]/,
     R_$               = /^[$]/,
-    R_NEW_LINE        = /^[\n]/;
-    R_SPACE           = /^[\s]/;
+    R_NEW_LINE        = /^(\n)(\r)?/;
+    R_SPACE           = /^\s/;
 
 //-----------------------------------
 // The Magic Lexer Object
@@ -79,15 +84,14 @@ var Tokens = {
     T_MINUS         : { pattern: R_MINUS,       length: 1 },
     CT_NEW_LINE     : { pattern: R_NEW_LINE,    length: 1 },
     CT_SPACE        : { pattern: R_SPACE,       length: 1 },
-    T_$             : { pattern: R_$,           length: 1 },
-    
+    T_$             : { pattern: R_$,           length: 1 }
 }
 
 //-----------------------------------
-// Token
+// Token Object
 //-----------------------------------
-var Token = function(type, line, value){
-    this.type   = type; // Any Token defined above
-    this.line   = line; // The line number it appears on
-    this.value  = value; // The chunk of source code
+var Token = function(){
+    this.type   = null; // Any Token defined above
+    this.line   = -1;   // The line number it appears on
+    this.value  = '';   // The chunk of source code
 }
