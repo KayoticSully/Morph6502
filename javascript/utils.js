@@ -1,17 +1,15 @@
-//===================================
-// Utils.js
-//-----------------------------------
-// Random functions that are usefull
-// anywhere
-//-----------------------------------
-// Author: Ryan Sullivan
-// Created: 2/16/2013
-// Updated: 2/16/2013
-//===================================
+/**
+ * @file Random functions that are usefull anywhere
+ * @author Ryan Sullivan
+ * @version 20130223
+ */
 
-//--------------------
-// Alan's Trim
-//--------------------
+/**
+ * Alan's Trim
+ *
+ * @param {String} src String to trim
+ * @returns {String} src with no whitespace on either side.
+ */
 function trim(str) // Use a regular expression to remove leading and trailing spaces.
 {
     // I removed the whitespace on either side of the OR "|" operator.

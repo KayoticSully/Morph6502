@@ -1,16 +1,11 @@
-//===================================
-// output.js
-//-----------------------------------
-// Helper functions to display output
-// to the web interface
-//-----------------------------------
-// Author: Ryan Sullivan
-// Created: 2/19/2013
-// Updated: 2/19/2013
-//===================================
+/**
+ * @file Helper functions to display output to the web interface
+ * @author Ryan Sullivan
+ * @version 20130219
+ */
 
 /**
- * @name displayOutput
+ * Displays compiler output pane
  */
 function displayOutput() {
     $('#productions').addClass('hidden');
@@ -18,9 +13,7 @@ function displayOutput() {
 }
 
 /**
- * @name clearOutput
- * 
- * @description Completely clears output and shows productions pane
+ * Completely clears output and shows productions pane
  */
 function clearOutput() {
     $('#productions').removeClass('hidden');
@@ -29,9 +22,7 @@ function clearOutput() {
 }
 
 /**
- * @name resetOutput
- * 
- * @description Only clears output pane and line highlighting
+ * Only clears output pane and line highlighting
  */
 function resetOutput() {
     // reset line highlighting and output pane
@@ -40,11 +31,10 @@ function resetOutput() {
 }
 
 /**
- * @name log
+ * Controls compiler output
+ * 
  * @param {String} line A line to add to output list
  * @param {String} type Classes to add to output list item
- *
- * @description Controls compiler output
  */
 function log(line, type) {
     
@@ -57,10 +47,10 @@ function log(line, type) {
 }
 
 /**
+ * Handles the display of errors found during Lexing
+ * 
  * @name displayTokenErrors
  * @param {Object} tokenErrors An object with line numbers for keys and the number of errors on that line as values
- *
- * @description Handles the display of errors found during Lexing
  */
 function displayTokenErrors(tokenErrors) {
     for(lineNumber in tokenErrors) {

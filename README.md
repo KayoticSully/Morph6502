@@ -10,4 +10,18 @@ For more information on Git submodules check out [this article](http://git-scm.c
 
 Documentation
 -------------
-I am using Google's JSDocs to generate documentation.  These files can be found in the docs folder.
+I am using Google's JSDocs to generate documentation.  These files can be found in the docs folder. I'm still getting used to JSDocs so they might not be all to helpful right now.
+
+Notes
+=====
+T_ Constants
+-------------
+These are token constants that the lexer will put into the token stream.
+
+CT_ Constants
+-------------
+These are "Control Token" constants that the lexer will use but not include in the token stream
+
+R_ Constants
+-------------
+These are the RegEx pattern constants for the corresponding token constants.

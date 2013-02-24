@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: compile.js</title>
+    <title>JSDoc: Source: utils.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: compile.js</h1>
+    <h1 class="page-title">Source: utils.js</h1>
     
     
 
@@ -26,51 +26,30 @@
     <section>
         <article>
             <pre class="prettyprint source"><code>/**
- * @file Controls the flow of compilation. Cleans up input, runs Lexer, runs Parser
+ * @file Random functions that are usefull anywhere
  * @author Ryan Sullivan
- * @version 20130219
+ * @version 20130223
  */
-function compile() {
-    //----------------------
-    // Setup
-    //----------------------
-    resetOutput();
-    
-    // First we need to get the input from the textarea
-    var input   = document.getElementById('input');
-    var source  = trim(input.value);
-    
-    // stop if there was no input
-    if(source == '') {
-        log('There was no input to compile.', 'error');
-        displayOutput();
-        return false;
-    }
-    
-    //----------------------
-    // Lexer
-    //----------------------
-    log('Lexer:');
-    var lexerReults = lexer(source);
-    var tokenStream = lexerReults.tokens;
-    var tokenErrors = lexerReults.errors;
-    
-    if(tokenErrors.length > 0)
-    {
-        displayTokenErrors(tokenErrors);
-        return false;
-    }
-    
-    // print out token stream to console
-    for(token in tokenStream) {
-        console.log(tokenStream[token]);
-    }
-    
-    var parseResults = parser(tokenStream);
-    
-    displayOutput();
-    
-    return true;
+
+/**
+ * Alan's Trim
+ *
+ * @param {String} src String to trim
+ * @returns {String} src with no whitespace on either side.
+ */
+function trim(str) // Use a regular expression to remove leading and trailing spaces.
+{
+    // I removed the whitespace on either side of the OR "|" operator.
+    // It was messing up if the only space was a newline character.
+    return str.replace(/^\s+|\s+$/g, "");
+    /* 
+	Huh?  Take a breath.  Here we go:
+	- The "|" separates this into two expressions, as in A or B.
+	- "^\s+" matches a sequence of one or more whitespace characters at the beginning of a string.
+        - "\s+$" is the same thing, but at the end of the string.
+        - "g" makes is global, so we get all the whitespace.
+        - "" is nothing, which is what we replace the whitespace with.
+    */
 }</code></pre>
         </article>
     </section>

@@ -1,19 +1,7 @@
-//===================================
-// compile.js
-//-----------------------------------
-// Controls flow of compilation.
-// 1. Cleans up input
-// 2. Lexer
-//-----------------------------------
-// Author: Ryan Sullivan
-// Created: 2/19/2013
-// Updated: 2/19/2013
-//===================================
-
 /**
- * @name compile
- *
- * @description Controls the flow of compilation
+ * @file Controls the flow of compilation. Cleans up input, runs Lexer, runs Parser
+ * @author Ryan Sullivan
+ * @version 20130219
  */
 function compile() {
     //----------------------
@@ -36,7 +24,7 @@ function compile() {
     // Lexer
     //----------------------
     log('Lexer:');
-    var lexerReults = lexer(source);
+    var lexerReults = lexer.lex(source);
     var tokenStream = lexerReults.tokens;
     var tokenErrors = lexerReults.errors;
     
@@ -50,6 +38,8 @@ function compile() {
     for(token in tokenStream) {
         console.log(tokenStream[token]);
     }
+    
+    var parseResults = parser.parse(tokenStream);
     
     displayOutput();
     

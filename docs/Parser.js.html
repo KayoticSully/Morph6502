@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: compile.js</title>
+    <title>JSDoc: Source: Parser.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: compile.js</h1>
+    <h1 class="page-title">Source: Parser.js</h1>
     
     
 
@@ -26,51 +26,76 @@
     <section>
         <article>
             <pre class="prettyprint source"><code>/**
- * @file Controls the flow of compilation. Cleans up input, runs Lexer, runs Parser
+ * @file Houses the Parser class
  * @author Ryan Sullivan
- * @version 20130219
+ * @version 20130223
  */
-function compile() {
-    //----------------------
-    // Setup
-    //----------------------
-    resetOutput();
+
+/**
+ * Parses a token stream.
+ * 
+ * @class
+ */
+var Parser = function() {
     
-    // First we need to get the input from the textarea
-    var input   = document.getElementById('input');
-    var source  = trim(input.value);
+    /** The token stream from the Lexer **/
+    var tokenStream;
     
-    // stop if there was no input
-    if(source == '') {
-        log('There was no input to compile.', 'error');
-        displayOutput();
-        return false;
+    /**
+     * Traverses the source code input to verify and build a token stream.
+     * 
+     * @param {Array} tokens Token Stream from Lex
+     */
+    this.parse = function(tokens) {
+        tokenStream = tokens;
+        console.log(tokenStream);
+        while(tokenStream.length > 0) {
+            parseCharacter();
+        }
     }
     
-    //----------------------
-    // Lexer
-    //----------------------
-    log('Lexer:');
-    var lexerReults = lexer(source);
-    var tokenStream = lexerReults.tokens;
-    var tokenErrors = lexerReults.errors;
-    
-    if(tokenErrors.length > 0)
-    {
-        displayTokenErrors(tokenErrors);
-        return false;
+    /**
+     * Checks for the Character production
+     */
+    function parseCharacter() {
+        var index = checkToken(T_CHARACTER);
+        // will return 0 if correct, which is also equal to false
+        // so... its a bit misleading.  Might work something out later.
+        //console.log(index);
+        if(index == 0) {
+            return true;
+        } else {
+            console.log('ERROR');
+            return false;
+        }
     }
     
-    // print out token stream to console
-    for(token in tokenStream) {
-        console.log(tokenStream[token]);
+    /**
+     * Consumes a token and checks it against a series of types
+     * 
+     * @param {Array} token stream
+     * @returns {Integer} index of matched type or -1 if not found
+     */
+    function checkToken(types) {
+        // consume token
+        var token = tokenStream.splice(0, 1);
+        
+        // make sure types is an array
+        if(!(types instanceof Array)) {
+            types = new Array(types);
+        }
+        //console.log(types);
+        // see which expected type it is, or is not
+        for(var index in types) {
+            //console.log(token);
+            //console.log(token.type + ' == ' + types[index]);
+            if(token.type === types[index]) {
+                return index;
+            }
+        }
+        
+        return -1;
     }
-    
-    var parseResults = parser(tokenStream);
-    
-    displayOutput();
-    
-    return true;
 }</code></pre>
         </article>
     </section>

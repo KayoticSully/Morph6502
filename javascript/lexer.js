@@ -1,32 +1,27 @@
-//===================================
-// Lexer.js
-//-----------------------------------
-// Parses code source into a token
-// stream.
-//-----------------------------------
-// Author: Ryan Sullivan
-// Created: 2/16/2013
-// Updated: 2/19/2013
-//===================================
+/**
+ * @file Houses the Lexer class
+ * @author Ryan Sullivan
+ * @version 20130219
+ */
 
-//----------------------------
-// Lexer is a full closure to
-// encapulate the Lexer's
-// inner workings
-//----------------------------
+/**
+ * Converts source code into a token
+ * stream.
+ *
+ * @class
+ */
 var Lexer = function() {
     
     var currentLine = 1;
     var errors = new Array();
     
     /**
-    * @name Lexer
-    * @param {String} source The source code to convert into tokens
-    * @returns {Array} An array of tokens
-    * 
-    * @description Traverses the source code input to verify and build a token stream.
-    */
-    function Lexer(src) {
+     * Traverses the source code input to verify and build a token stream.
+     * 
+     * @param {String} source The source code to convert into tokens
+     * @returns {Array} An array of tokens
+     */
+    this.lex = function(src) {
         // We can assume that the src input is already cleaned
         
         // make sure values are reset
@@ -44,15 +39,14 @@ var Lexer = function() {
     }
     
     /**
-     * @name process
-     * @param {String} src Source code to process.
-     * @returns {Array} Stream of tokens found in source
+     * Each recursive itteration will have one less token removed from the front of the source.
      *
-     * @description Each recursive itteration will have one less token removed from the front of the source.
+     * @param {String} src Source code to process.
+     * @returns {Array} Stream of tokens found in source.
      */
     function process(src) {
         // get next token info
-        var tokenType   = checkToken(src);
+        var tokenType   = findToken(src);
         var length      = getTokenLength(tokenType);
         
         // string minus found token or error
@@ -98,13 +92,12 @@ var Lexer = function() {
     }
     
     /**
-     * @name checkToken
+     * Finds a token at the beginning of the source input.
+     * 
      * @param {String} str A chunk of source code to be tested for a token at the start.
      * @returns {String} A token constant that represents the type of token found.
-     *
-     * @description Finds a token at the beginning of the source input.
      */
-    function checkToken(str) {
+    function findToken(str) {
         // for each possible token
         for(token in Tokens) {
             // test to see if the next token is this one
@@ -119,11 +112,10 @@ var Lexer = function() {
     }
     
     /**
-     * @name getTokenLength
+     * Gets the length of a token.
+     * 
      * @param {String} tokenType Type of token to find the length of
      * @return {Integer} length of token or 1 if token is not found
-     *
-     * @description Gets the length of a token.
      */
     function getTokenLength(tokenType) {
         if(tokenType in Tokens) {
@@ -132,10 +124,4 @@ var Lexer = function() {
             return 1;
         }
     }
-    
-    //----------------------------
-    // Return the Lexer so we
-    // have full closure
-    //----------------------------
-    return Lexer;
 }

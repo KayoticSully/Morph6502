@@ -1,23 +1,18 @@
-//===================================
-// app.js
-//-----------------------------------
-// Initializes page and loads main
-// functions
-//-----------------------------------
-// Author: Ryan Sullivan
-// Created: 2/16/2013
-// Updated: 2/19/2013
-//===================================
+/**
+ * @file Initializes page and loads main functions
+ * @author Ryan Sullivan
+ * @version 20130223
+ */
 
+/** @global */
 var api,
-    lexer;
+    lexer,
+    parser;
 
 $(document).ready(init);
 
 /**
- * @name init
- * 
- * @description initializes Morph6502
+ * initializes Morph6502
  */
 function init() {
     api = impress();
@@ -39,21 +34,18 @@ function init() {
     
     // Load Lexer
     lexer = new Lexer();
+    parser = new Parser();
 }
 
 /**
- * @name setupKeyboardEvents
- * 
- * @description Enables all special keyboard events that the interface requires
+ * Enables all special keyboard events that the interface requires
  */
 function setupKeyboardEvents() {
     $('#input').on('keydown', specialKeys);
 }
 
 /**
- * @name specialKeys
- *
- * @description Handles keyboard events
+ * Handles keyboard events
  */
 function specialKeys(event) {
     const TABKEY = 9;
