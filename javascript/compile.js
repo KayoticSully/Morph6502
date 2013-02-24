@@ -39,6 +39,7 @@ function compile() {
         console.log(tokenStream[token]);
     }
     
+    log('Parser:');
     var parseResults = parser.parse(tokenStream);
     
     displayOutput();
