@@ -54,7 +54,7 @@ var Lexer = function() {
         var length      = getTokenLength(tokenType);
         
         // string minus found token or error
-        var progress    = src.substr(length); 
+        var progress    = src.substr(length);
         
         // create new token up here
         // so it can be used throughout
@@ -97,11 +97,11 @@ var Lexer = function() {
             break;
         }
         
-        if(src.length > 1) {
+        if(progress.length > 0) {
             // concat is used here so arrays do not become nested
             return new Array(token).concat(process(progress)); // YAY RECURSION!
         } else {
-            return token;
+            return new Array(token);
         }
     }
     
