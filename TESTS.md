@@ -7,15 +7,17 @@ Project 1
 ```
 {}$
 ```
-> No errors or warnings expected in output
+####Output
+*   No errors or warnings expected in output
 
 ###Declare a variable
 ```
 int a
 $
 ```
-> No errors or warnings expected in output
-> Symbol a with type T_INT
+####Output
+*   No errors or warnings expected in output
+*   Symbol a with type T_INT
 
 or
 ```
@@ -24,7 +26,7 @@ or
 }
 $
 ```
-> No errors or warnings expected in output\n
+> No errors or warnings expected in output
 > Symbol a with type T_INT
 
 ###Some Statements
