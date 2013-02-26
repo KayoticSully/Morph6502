@@ -1,9 +1,7 @@
-Test Cases
-==========
-
 Project 1
----------
-###Basic empty program
+=========
+Basic empty program
+-------------------
 ```
 {}$
 ```
@@ -11,7 +9,8 @@ Project 1
 *   No errors or warnings expected in output
 
 
-###Declare a variable
+Declare a variable
+------------------
 ```
 int a
 $
@@ -31,7 +30,8 @@ $
 *   Symbol a with type T_INT
 
 
-###Some Statements
+Some Statements
+---------------
 ```
 {
     P("start of example")
@@ -51,7 +51,8 @@ $
 *   Symbol b with type T_CHAR
 
 
-###Lex Errors
+Lex Errors
+----------
 ```
 {
     !@#%^&*()_
@@ -82,7 +83,8 @@ $
     *   3 : Unknown token %
 
 
-###Parse Errors
+Parse Errors
+------------
 ```
 {
     int 1
@@ -142,7 +144,8 @@ $
     *   6 : Redeclared Identifier a
 
 
-###Warnings
+Warnings
+--------
 ```
 {
     P("this example does not contain a program end symbol")
@@ -164,7 +167,8 @@ P("this is some extra code")
     *   Warning: Content after end of program symbol ($) ignored.
 
 
-###Test Cases for Actual Errors I had to Fix
+Test Cases for Actual Errors I had to Fix
+------------------------------------------
 ```
 a
 ```
