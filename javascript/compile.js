@@ -1,7 +1,7 @@
 /**
  * @file Controls the flow of compilation. Cleans up input, runs Lexer, runs Parser
  * @author Ryan Sullivan
- * @version 20130219
+ * @version 20130225
  */
 function compile() {
     //----------------------
@@ -23,7 +23,7 @@ function compile() {
     //----------------------
     // Lexer
     //----------------------
-    log('Lexer:');
+    log('Lexer:', 'info');
     var lexerReults = lexer.lex(source);
     var tokenStream = lexerReults.tokens;
     var tokenErrors = lexerReults.errors;
@@ -39,8 +39,14 @@ function compile() {
         console.log(tokenStream[token]);
     }
     
-    log('Parser:');
+    log('Parser:', 'info');
     var parseResults = parser.parse(tokenStream);
+    
+    if(parseResults) {
+        log("AWESOMESAUCE :)", 'success');
+    } else {
+        log("AWEFULSAUCE :(", 'error');
+    }
     
     displayOutput();
     

@@ -196,6 +196,18 @@ body {
     color: #FF4040;
 }
 
+.warning {
+    color: #BF7F30;
+}
+
+.success {
+    color: #269926;
+}
+
+.info {
+    color: #245A7A;
+}
+
 .hidden {
     opacity: 0;
 }

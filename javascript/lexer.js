@@ -1,7 +1,7 @@
 /**
  * @file Houses the Lexer class
  * @author Ryan Sullivan
- * @version 20130219
+ * @version 20130225
  */
 
 /**
@@ -63,6 +63,10 @@ var Lexer = function() {
             case CT_NEW_LINE:
                 currentLine++;
                 // return next token to remove this from the token stream
+                return process(progress);
+            break;
+            
+            case CT_SPACE:
                 return process(progress);
             break;
             
