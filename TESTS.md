@@ -19,6 +19,7 @@ or
     int a
 }
 $
+```
 
 ###Some Statements
 ```
@@ -82,3 +83,5 @@ Unfortunately this one requires the first two errors to be fixed before the thir
 }
 $
 ```
+
+###Warnings
