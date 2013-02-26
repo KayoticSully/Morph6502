@@ -25,6 +25,7 @@ or
 $
 ```
 > No errors or warnings expected in output
+
 > Symbol a with type T_INT
 
 ###Some Statements
