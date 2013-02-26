@@ -30,6 +30,61 @@
     </div>
     
     <!--
+        External Links
+    -->
+    <div id="externalLinks">
+        External Links
+        <ul>
+            <li>
+                <a href="docs/index.html">JSDocs</a>
+            </li>
+            <li>
+                <a href="https://github.com/KayoticSully/Morph6502">GitHub</a>
+            </li>
+        </ul>
+        <br>
+        Load a test program
+        <ul>
+            <li id="testEmpty" class="testProgram" onclick="loadTest(this);">
+                Empty Program
+            </li>
+            <li id="testDeclareVariable" class="testProgram" onclick="loadTest(this);">
+                Declare Variable
+            </li>
+            <li id="testDeclareVariableAlt" class="testProgram" onclick="loadTest(this);">
+                Declare Variable Alt
+            </li>
+            <li id="testStatements" class="testProgram" onclick="loadTest(this);">
+                Statements
+            </li>
+            <li id="testLexError" class="testProgram" onclick="loadTest(this);">
+                Lex Error
+            </li>
+            <li id="testLexErrorAlt" class="testProgram" onclick="loadTest(this);">
+                Lex Error Alt
+            </li>
+            <li id="testParseError" class="testProgram" onclick="loadTest(this);">
+                Parse Error
+            </li>
+            <li id="testParseErrorAlt" class="testProgram" onclick="loadTest(this);">
+                Parse Error Alt
+            </li>
+            <li id="testParseErrorAlt2" class="testProgram" onclick="loadTest(this);">
+                Parse Error Alt 2
+            </li>
+            <li id="testRedeclarationError" class="testProgram" onclick="loadTest(this);">
+                Redeclaration Error
+            </li>
+            <li id="testWarningEndSymbol" class="testProgram" onclick="loadTest(this);">
+                Program End Symbol Warning
+            </li>
+            <li id="testWarningExtraCode" class="testProgram" onclick="loadTest(this);">
+                Extra Code
+            </li>
+        </ul>
+    </div>
+    
+    <!--
         Start Impress Presentation
     -->
     <div id="impress">
@@ -276,6 +331,7 @@
     <!-- Load Helper Files -->
     <script src="javascript/utils.js"></script>
     <script src="javascript/output.js"></script>
+    <script src="javascript/tests.js"></script>
     
     <!-- Load Project Files -->
     <script src="javascript/compile.js"></script>

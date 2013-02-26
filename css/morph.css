@@ -249,6 +249,36 @@ button.hidden {
     General Application Styles
  *-----------------------------*/
 
+#externalLinks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding:10px;
+    width: 100%;
+    text-align: left;
+    color: #245A7A;
+}
+
+#externalLinks a, #externalLinks a:active, #externalLinks a:visited,
+#externalLinks li  {
+    color: #269926;
+    text-decoration: none;
+}
+
+#externalLinks a:hover, #externalLinks li:hover {
+    text-decoration: underline;
+}
+
+#externalLinks li {
+    color: #269926;
+    cursor: pointer;
+    padding:0px 10px;
+}
+
+#externalLinks ul {
+    margin-top:5px;
+}
+
 /*
     Title Frame Styles
 */

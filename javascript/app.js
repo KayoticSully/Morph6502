@@ -68,3 +68,10 @@ function setVerbose(event) {
         logLevel = 'normal';
     }
 }
+
+/**
+ * Loads a test case into the editor
+ */
+function loadTest(event) {
+    document.getElementById('input').value = Tests[event.id];
+}
