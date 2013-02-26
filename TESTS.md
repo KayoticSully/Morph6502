@@ -83,5 +83,29 @@ Unfortunately this one requires the first two errors to be fixed before the thir
 }
 $
 ```
+Redeclaration error!
+```
+{
+    int a
+    a = 1
+    a = 5 + a
+    
+    char a
+}
+$
+```
 
 ###Warnings
+```
+{
+    P("this example does not contain a program end symbol")
+}
+```
+or
+```
+{
+    P("this example has extra code after the end of program symbol")
+}
+$
+P("this is some extra code")
+```
