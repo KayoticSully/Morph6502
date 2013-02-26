@@ -7,17 +7,16 @@ Project 1
 ```
 {}$
 ```
->Lexer Start
->Parser Start
->Success!
-> 
->Symbol Table
+> No errors or warnings expected in output
 
 ###Declare a variable
 ```
 int a
 $
 ```
+> No errors or warnings expected in output
+> Symbol a with type T_INT
+
 or
 ```
 {
@@ -25,6 +24,8 @@ or
 }
 $
 ```
+> No errors or warnings expected in output
+> Symbol a with type T_INT
 
 ###Some Statements
 ```
@@ -40,6 +41,9 @@ $
 }
 $
 ```
+> No errors or warnings expected in output
+> Symbol a with type T_INT
+> Symbol b with type T_CHAR
 
 ###Lex Errors
 ```
@@ -48,6 +52,16 @@ $
 }
 $
 ```
+>Errors:
+>2 : Unknown token !
+>2 : Unknown token @
+>2 : Unknown token #
+>2 : Unknown token %
+>2 : Unknown token ^
+>2 : Unknown token &
+>2 : Unknown token \*
+>2 : Unknown token \_
+
 or
 ```
 {
@@ -56,6 +70,9 @@ or
 }
 $
 ```
+>Errors:
+>2 : Unknown token #
+>3 : Unknown token %
 
 ###Parse Errors
 ```
@@ -65,6 +82,10 @@ $
 }
 $
 ```
+>Errors:
+>2 : Expected T_CHARACTER, found T_DIGIT
+>3 : Expected T_CHARACTER, found T_DIGIT
+
 or
 ```
 {
@@ -73,6 +94,9 @@ or
 }
 $
 ```
+>Error:
+>3 : Expected T_QUOTE, found T_DIGIT
+
 Unfortunately this one requires the first two errors to be fixed before the third error will show.
 ```
 {
@@ -88,6 +112,10 @@ Unfortunately this one requires the first two errors to be fixed before the thir
 }
 $
 ```
+>Errors:
+>2 : Expected T_QUOTE, found T_DIGIT
+>6 : Expected T_BRACE_CLOSE, found T_PLUS
+
 Redeclaration error!
 ```
 {
@@ -99,6 +127,8 @@ Redeclaration error!
 }
 $
 ```
+>Error:
+>6 : Redeclared Identifier a
 
 ###Warnings
 ```
@@ -106,6 +136,9 @@ $
     P("this example does not contain a program end symbol")
 }
 ```
+>Warning:
+>Warning: Program did not end with $. Remember it next time!
+
 or
 ```
 {
@@ -114,12 +147,19 @@ or
 $
 P("this is some extra code")
 ```
+>Warning:
+>Warning: Content after end of program symbol ($) ignored.
 
 ###Test Cases for Actual Errors I had to Fix
 ```
 a
 ```
+>Error:
+>Last Line : Expected T_EQUALS, found false
+
 and
 ```
 int
 ```
+>Error:
+>Last Line : Expected T_CHARACTER, found false
