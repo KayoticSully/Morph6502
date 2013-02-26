@@ -10,6 +10,7 @@ Project 1
 ####Output
 *   No errors or warnings expected in output
 
+
 ###Declare a variable
 ```
 int a
@@ -19,7 +20,6 @@ $
 *   No errors or warnings expected in output
 *   Symbol a with type T_INT
 
-or
 ```
 {
     int a
@@ -29,6 +29,7 @@ $
 ####Output
 *   No errors or warnings expected in output
 *   Symbol a with type T_INT
+
 
 ###Some Statements
 ```
@@ -49,6 +50,7 @@ $
 *   Symbol a with type T_INT
 *   Symbol b with type T_CHAR
 
+
 ###Lex Errors
 ```
 {
@@ -67,7 +69,6 @@ $
     *   2 : Unknown token \*
     *   2 : Unknown token \_
 
-or
 ```
 {
     int #
@@ -79,6 +80,7 @@ $
 *   Errors:
     *   2 : Unknown token #
     *   3 : Unknown token %
+
 
 ###Parse Errors
 ```
@@ -93,7 +95,6 @@ $
     *   2 : Expected T_CHARACTER, found T_DIGIT
     *   3 : Expected T_CHARACTER, found T_DIGIT
 
-or
 ```
 {
     char b
@@ -140,6 +141,7 @@ $
 *   Error:
     *   6 : Redeclared Identifier a
 
+
 ###Warnings
 ```
 {
@@ -150,7 +152,6 @@ $
 *   Warning:
     *   Warning: Program did not end with $. Remember it next time!
 
-or
 ```
 {
     P("this example has extra code after the end of program symbol")
@@ -161,6 +162,7 @@ P("this is some extra code")
 ####Output
 *   Warning:
     *   Warning: Content after end of program symbol ($) ignored.
+
 
 ###Test Cases for Actual Errors I had to Fix
 ```
