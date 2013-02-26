@@ -178,6 +178,180 @@
         <dl>
             
 <dt>
+    <h4 class="name" id="getErrors"><span class="type-signature"></span>getErrors<span class="signature">()</span><span class="type-signature"> &rarr; {Array}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns errors found during parsing
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 46
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Errors
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Array</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getSymbolTable"><span class="type-signature"></span>getSymbolTable<span class="signature">()</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns the Symbol Table build during parsing
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 54
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Symbol Table
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Object</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
     <h4 class="name" id="parse"><span class="type-signature"></span>parse<span class="signature">(tokens)</span><span class="type-signature"></span></h4>
     
     
@@ -267,7 +441,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Parser.js.html">Parser.js</a>, line 22
+        <a href="Parser.js.html">Parser.js</a>, line 24
     </li></ul></dd>
     
     
@@ -291,7 +465,7 @@
         
             
 <dt>
-    <h4 class="name" id="checkToken"><span class="type-signature">&lt;inner> </span>checkToken<span class="signature">(token)</span><span class="type-signature"> &rarr; {Integer}</span></h4>
+    <h4 class="name" id="checkToken"><span class="type-signature">&lt;inner> </span>checkToken<span class="signature">(type, displayError)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
     
     
 </dt>
@@ -299,7 +473,7 @@
     
     
     <div class="description">
-        Consumes a token and checks it against a series of types
+        Checks the next token against a series of types
     </div>
     
 
@@ -333,13 +507,13 @@
 	
         <tr>
             
-                <td class="name"><code>token</code></td>
+                <td class="name"><code>type</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">Array</span>
+<span class="param-type">String</span>
 
 
             
@@ -349,7 +523,30 @@
             
             
             
-            <td class="description last">stream</td>
+            <td class="description last">Type of token to match</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>displayError</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Should function display error on fail? Defaults to true</td>
         </tr>
 	
 	
@@ -380,7 +577,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Parser.js.html">Parser.js</a>, line 52
+        <a href="Parser.js.html">Parser.js</a>, line 374
     </li></ul></dd>
     
     
@@ -401,7 +598,7 @@
     
             
 <div class="param-desc">
-    index of matched type or -1 if not found
+    true if token type is matched false otherwise
 </div>
 
 
@@ -412,7 +609,7 @@
 	</dt>
 	<dd>
 		
-<span class="param-type">Integer</span>
+<span class="param-type">Boolean</span>
 
 
 	</dd>
@@ -426,7 +623,7 @@
         
             
 <dt>
-    <h4 class="name" id="parseCharacter"><span class="type-signature">&lt;inner> </span>parseCharacter<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="consume"><span class="type-signature">&lt;inner> </span>consume<span class="signature">()</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
     
     
 </dt>
@@ -434,7 +631,7 @@
     
     
     <div class="description">
-        Checks for the Character production
+        Consumes a token in the tokenStream
     </div>
     
 
@@ -467,7 +664,142 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Parser.js.html">Parser.js</a>, line 33
+        <a href="Parser.js.html">Parser.js</a>, line 433
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    False if the tokenStream is empty otherwise true.
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="expectedError"><span class="type-signature">&lt;inner> </span>expectedError<span class="signature">(expected)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Logs an error of the format "Expected x, found y"
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>expected</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The expected token type</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 477
     </li></ul></dd>
     
     
@@ -488,6 +820,1750 @@
     
 </dd>
 
+        
+            
+<dt>
+    <h4 class="name" id="lookAhead"><span class="type-signature">&lt;inner> </span>lookAhead<span class="signature">(number)</span><span class="type-signature"> &rarr; {<a href="Token.html">Token</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Returns the token the number of steps ahead requested
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>number</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Integer</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The number of steps to look ahead</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 516
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    The token asked for
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Token.html">Token</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="multiCheckToken"><span class="type-signature">&lt;inner> </span>multiCheckToken<span class="signature">(types)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks the next token against a series of types
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>types</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Array of types to match</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 412
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    true if token matches any of the types false otherwise
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Boolean</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="nextLine"><span class="type-signature">&lt;inner> </span>nextLine<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Fast forwards to the next line
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 501
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseCharacter"><span class="type-signature">&lt;inner> </span>parseCharacter<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Character production | a || b || c ... z
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 334
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseCharExpr"><span class="type-signature">&lt;inner> </span>parseCharExpr<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the CharExpr production | "CharList"
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 238
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseCharList"><span class="type-signature">&lt;inner> </span>parseCharList<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the CharList production | Char CharList || Epsilon
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 260
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseDigit"><span class="type-signature">&lt;inner> </span>parseDigit<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Digit production | 1 || 2 || 3 ... 9 || 0
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 345
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseExpr"><span class="type-signature">&lt;inner> </span>parseExpr<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Expr production
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 179
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseId"><span class="type-signature">&lt;inner> </span>parseId<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Id production | Char
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 327
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseIntExpr"><span class="type-signature">&lt;inner> </span>parseIntExpr<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the IntExpr production | digit op Expr || digit
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 206
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseOp"><span class="type-signature">&lt;inner> </span>parseOp<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Op production | + || -
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 356
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseProgram"><span class="type-signature">&lt;inner> </span>parseProgram<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Program production | Statement $
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 64
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseQuote"><span class="type-signature">&lt;inner> </span>parseQuote<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Quote sub-production | "
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 249
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseStatement"><span class="type-signature">&lt;inner> </span>parseStatement<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Statement production
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 83
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseStatementList"><span class="type-signature">&lt;inner> </span>parseStatementList<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the StatementList production | Statement StatementList || Epsilon
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 153
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseType"><span class="type-signature">&lt;inner> </span>parseType<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Type production | int || char
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 316
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseVarDecl"><span class="type-signature">&lt;inner> </span>parseVarDecl<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the VarDecl production | Type Id
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 282
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="subIntExpr"><span class="type-signature">&lt;inner> </span>subIntExpr<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the sub-production op Expr
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 227
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="subStatement1"><span class="type-signature">&lt;inner> </span>subStatement1<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Statement production P(Expr)
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 113
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="subStatement2"><span class="type-signature">&lt;inner> </span>subStatement2<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Statement production Id = Expr
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 124
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="subStatement3"><span class="type-signature">&lt;inner> </span>subStatement3<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Statement production VarDecl
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 135
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="subStatement4"><span class="type-signature">&lt;inner> </span>subStatement4<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Checks for the Statement production {StatementList}
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 142
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="tokenLine"><span class="type-signature">&lt;inner> </span>tokenLine<span class="signature">()</span><span class="type-signature"> &rarr; {Integer}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Get the line number of the current token
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 463
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    line number
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">Integer</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="tokenType"><span class="type-signature">&lt;inner> </span>tokenType<span class="signature">()</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Get the type of the current token
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Parser.js.html">Parser.js</a>, line 449
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    token constant
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">String</span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
         </dl>
     
     
@@ -504,13 +2580,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Lexer.html">Lexer</a></li><li><a href="Parser.html">Parser</a></li><li><a href="Token.html">Token</a></li></ul><h3>Global</h3><ul><li><a href="global.html#api">api</a></li><li><a href="global.html#clearOutput">clearOutput</a></li><li><a href="global.html#CT_NEW_LINE">CT_NEW_LINE</a></li><li><a href="global.html#CT_SPACE">CT_SPACE</a></li><li><a href="global.html#displayOutput">displayOutput</a></li><li><a href="global.html#displayTokenErrors">displayTokenErrors</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#R_$">R_$</a></li><li><a href="global.html#R_BRACE_CLOSE">R_BRACE_CLOSE</a></li><li><a href="global.html#R_BRACE_OPEN">R_BRACE_OPEN</a></li><li><a href="global.html#R_CHAR">R_CHAR</a></li><li><a href="global.html#R_CHARACTER">R_CHARACTER</a></li><li><a href="global.html#R_DIGIT">R_DIGIT</a></li><li><a href="global.html#R_EQUALS">R_EQUALS</a></li><li><a href="global.html#R_INT">R_INT</a></li><li><a href="global.html#R_MINUS">R_MINUS</a></li><li><a href="global.html#R_NEW_LINE">R_NEW_LINE</a></li><li><a href="global.html#R_P">R_P</a></li><li><a href="global.html#R_PAREN_CLOSE">R_PAREN_CLOSE</a></li><li><a href="global.html#R_PAREN_OPEN">R_PAREN_OPEN</a></li><li><a href="global.html#R_PLUS">R_PLUS</a></li><li><a href="global.html#R_QUOTE">R_QUOTE</a></li><li><a href="global.html#R_SPACE">R_SPACE</a></li><li><a href="global.html#resetOutput">resetOutput</a></li><li><a href="global.html#setupKeyboardEvents">setupKeyboardEvents</a></li><li><a href="global.html#specialKeys">specialKeys</a></li><li><a href="global.html#T_$">T_$</a></li><li><a href="global.html#T_BRACE_CLOSE">T_BRACE_CLOSE</a></li><li><a href="global.html#T_BRACE_OPEN">T_BRACE_OPEN</a></li><li><a href="global.html#T_CHAR">T_CHAR</a></li><li><a href="global.html#T_CHARACTER">T_CHARACTER</a></li><li><a href="global.html#T_DIGIT">T_DIGIT</a></li><li><a href="global.html#T_EPSILON">T_EPSILON</a></li><li><a href="global.html#T_EQUALS">T_EQUALS</a></li><li><a href="global.html#T_INT">T_INT</a></li><li><a href="global.html#T_MINUS">T_MINUS</a></li><li><a href="global.html#T_P">T_P</a></li><li><a href="global.html#T_PAREN_CLOSE">T_PAREN_CLOSE</a></li><li><a href="global.html#T_PAREN_OPEN">T_PAREN_OPEN</a></li><li><a href="global.html#T_PLUS">T_PLUS</a></li><li><a href="global.html#T_QUOTE">T_QUOTE</a></li><li><a href="global.html#Tokens">Tokens</a></li><li><a href="global.html#trim">trim</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Lexer.html">Lexer</a></li><li><a href="Parser.html">Parser</a></li><li><a href="Token.html">Token</a></li></ul><h3>Global</h3><ul><li><a href="global.html#api">api</a></li><li><a href="global.html#clearOutput">clearOutput</a></li><li><a href="global.html#CT_NEW_LINE">CT_NEW_LINE</a></li><li><a href="global.html#CT_SPACE">CT_SPACE</a></li><li><a href="global.html#displayOutput">displayOutput</a></li><li><a href="global.html#displayTokenErrors">displayTokenErrors</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#log">log</a></li><li><a href="global.html#R_$">R_$</a></li><li><a href="global.html#R_BRACE_CLOSE">R_BRACE_CLOSE</a></li><li><a href="global.html#R_BRACE_OPEN">R_BRACE_OPEN</a></li><li><a href="global.html#R_CHAR">R_CHAR</a></li><li><a href="global.html#R_CHARACTER">R_CHARACTER</a></li><li><a href="global.html#R_DIGIT">R_DIGIT</a></li><li><a href="global.html#R_EQUALS">R_EQUALS</a></li><li><a href="global.html#R_INT">R_INT</a></li><li><a href="global.html#R_MINUS">R_MINUS</a></li><li><a href="global.html#R_NEW_LINE">R_NEW_LINE</a></li><li><a href="global.html#R_P">R_P</a></li><li><a href="global.html#R_PAREN_CLOSE">R_PAREN_CLOSE</a></li><li><a href="global.html#R_PAREN_OPEN">R_PAREN_OPEN</a></li><li><a href="global.html#R_PLUS">R_PLUS</a></li><li><a href="global.html#R_QUOTE">R_QUOTE</a></li><li><a href="global.html#R_SPACE">R_SPACE</a></li><li><a href="global.html#resetOutput">resetOutput</a></li><li><a href="global.html#setupKeyboardEvents">setupKeyboardEvents</a></li><li><a href="global.html#setVerbose">setVerbose</a></li><li><a href="global.html#specialKeys">specialKeys</a></li><li><a href="global.html#T_$">T_$</a></li><li><a href="global.html#T_BRACE_CLOSE">T_BRACE_CLOSE</a></li><li><a href="global.html#T_BRACE_OPEN">T_BRACE_OPEN</a></li><li><a href="global.html#T_CHAR">T_CHAR</a></li><li><a href="global.html#T_CHARACTER">T_CHARACTER</a></li><li><a href="global.html#T_DIGIT">T_DIGIT</a></li><li><a href="global.html#T_EPSILON">T_EPSILON</a></li><li><a href="global.html#T_EQUALS">T_EQUALS</a></li><li><a href="global.html#T_INT">T_INT</a></li><li><a href="global.html#T_MINUS">T_MINUS</a></li><li><a href="global.html#T_P">T_P</a></li><li><a href="global.html#T_PAREN_CLOSE">T_PAREN_CLOSE</a></li><li><a href="global.html#T_PAREN_OPEN">T_PAREN_OPEN</a></li><li><a href="global.html#T_PLUS">T_PLUS</a></li><li><a href="global.html#T_QUOTE">T_QUOTE</a></li><li><a href="global.html#Tokens">Tokens</a></li><li><a href="global.html#trim">trim</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Sat Feb 23 2013 19:59:51 GMT-0500 (EST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.0-dev</a> on Tue Feb 26 2013 02:41:40 GMT-0500 (EST)
 </footer>
 
 <script> prettyPrint(); </script>

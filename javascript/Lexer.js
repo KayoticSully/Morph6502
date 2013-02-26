@@ -34,6 +34,10 @@ var Lexer = function() {
         return process(src);
     }
     
+    /**
+     * Returns errors found during lexing
+     * @returns {Array} Errors
+     */
     this.getErrors = function() {
         return errors;
     }

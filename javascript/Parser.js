@@ -39,10 +39,18 @@ var Parser = function() {
         }
     }
     
+    /**
+     * Returns errors found during parsing
+     * @returns {Array} Errors
+     */
     this.getErrors = function() {
         return errors;
     }
     
+    /**
+     * Returns the Symbol Table build during parsing
+     * @returns {Object} Symbol Table
+     */
     this.getSymbolTable = function() {
         return symbolTable;
     }
