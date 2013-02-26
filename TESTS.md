@@ -4,7 +4,7 @@ Test Cases
 Project 1
 ---------
 ###Basic empty program
-```c
+```
 {}$
 ```
 ####Output
@@ -20,7 +20,7 @@ $
 *   Symbol a with type T_INT
 
 or
-```c
+```
 {
     int a
 }
