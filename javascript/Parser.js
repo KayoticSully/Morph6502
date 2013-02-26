@@ -1,7 +1,7 @@
 /**
  * @file Houses the Parser class
  * @author Ryan Sullivan
- * @version 20130225
+ * @version 20130226
  */
 
 /**
@@ -14,6 +14,7 @@ var Parser = function() {
     /** The token stream from the Lexer **/
     var tokenStream;
     var errors;
+    var symbolTable;
     
     /**
      * Traverses the source code input to verify and build a token stream.
@@ -24,6 +25,7 @@ var Parser = function() {
         // set defaults
         tokenStream = tokens;
         errors = new Array();
+        symbolTable = new Object();
         
         log('------------');
         log('Parser Start', 'info');
@@ -39,6 +41,10 @@ var Parser = function() {
     
     this.getErrors = function() {
         return errors;
+    }
+    
+    this.getSymbolTable = function() {
+        return symbolTable;
     }
     
     //-----------------------
@@ -266,7 +272,30 @@ var Parser = function() {
      * Checks for the VarDecl production | Type Id
      */
     function parseVarDecl() {
+        // preemptively
+        var typeToken = tokenStream[0];
+        var idToken   = tokenStream[1];
+        
         if(parseType() && parseId()) {
+            // see if new variable declaration is in the symbol table
+            if(idToken.value in symbolTable) {
+                var line = idToken.line;
+                var error = line + " : Redeclared Identifier " + idToken.value;
+                
+                if(errors[line] === undefined) {
+                    errors[line] = new Array();
+                }
+                
+                // Store error
+                errors[line].push(error);
+                
+                // log error
+                log(error, 'error');
+                
+            } else {
+                symbolTable[idToken.value] = typeToken.type;
+            }
+            
             return true;
         } else {
             return false;
@@ -449,7 +478,7 @@ var Parser = function() {
         
         // Store error
         // Parser can only detect one error per line so no need for an array here
-        errors[line] = error;
+        errors[line].push(error);
         
         // log error
         log(error, 'error');

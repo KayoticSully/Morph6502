@@ -1,7 +1,7 @@
 /**
  * @file Helper functions to display output to the web interface
  * @author Ryan Sullivan
- * @version 20130219
+ * @version 20130226
  */
 
 /**
@@ -38,7 +38,6 @@ function resetOutput() {
  * @param {Boolean} verbose Set to true if log should only be shown when verbose output is on. Default false
  */
 function log(line, type, verbose) {
-    
     if(verbose === undefined) verbose = false;
     if(type === undefined) type = '';
     

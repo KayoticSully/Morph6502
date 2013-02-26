@@ -10,10 +10,10 @@ For more information on Git submodules check out [this article](http://git-scm.c
 
 Documentation
 -------------
-I am using Google's JSDocs to generate documentation.  These files can be found in the docs folder. I'm still getting used to JSDocs so they might not be all to helpful right now.
+I am using Google's JSDocs to generate documentation.  These files can be found in the docs folder.
 
-Notes
-=====
+Notes (Project 1)
+=================
 T_ Constants
 -------------
 These are token constants that the lexer will put into the token stream.
@@ -25,3 +25,24 @@ These are "Control Token" constants that the lexer will use but not include in t
 R_ Constants
 -------------
 These are the RegEx pattern constants for the corresponding token constants.
+
+Input
+-----
+Keyboard input behaves as you would expect in the textarea with a single exception.  Tab does indent the current line, but only when there is no code after the cursor.  Otherwise it adds the spaces to the end of the code and drops the cursor there.
+
+Output
+------
+The output is color coded:
+*   Green text is used to identify important symbols and words in the output
+*   Blue text is used to provide extra information
+*   Orange/Yellow text is used to display warnings. (Along with the word "Warning:")
+*   Red text is used to display errors in the format "Line Number : Error Message"
+*   Black text is used for formatting
+
+Line numbers will also be highlighted in red if an error appears on that line.
+
+Other :)
+--------
+*   The symbol table is printed after all other output and will not print if there have been errors
+*   I did my best to catch multiple errors at once in the parse phase.  Sometimes a line is skipped when an error appears on the previous line.
+*   Most if not all of the animations are done in CSS3, you challenged me... but I didn't want to use jQuery (for that).  CSS3 animations are actually much easier to use!

@@ -1,7 +1,7 @@
 /**
  * @file Controls the flow of compilation. Cleans up input, runs Lexer, runs Parser
  * @author Ryan Sullivan
- * @version 20130225
+ * @version 20130226
  */
 function compile() {
     //----------------------
@@ -55,9 +55,20 @@ function compile() {
     // Final Output
     //----------------------
     log('------------');
-    log('Final Output', 'info');
-    log('------------');
     log("Success!", 'success');
+    log('------------');
+    
+    // Display Symbol Table
+    var symbolTable = parser.getSymbolTable();
+    log('&nbsp;');
+    log('Symbol Table', 'info');
+    log('------------');
+    for(var symbol in symbolTable) {
+        var entry = '<span class="success">' + symbol + '</span> | <span class="info">' + symbolTable[symbol] + '</span>';
+        log(entry);
+    }
+    log('------------');
+    
     displayOutput();
     return true;
 }

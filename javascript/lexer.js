@@ -1,7 +1,7 @@
 /**
  * @file Houses the Lexer class
  * @author Ryan Sullivan
- * @version 20130225
+ * @version 20130226
  */
 
 /**

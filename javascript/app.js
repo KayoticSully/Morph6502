@@ -1,7 +1,7 @@
 /**
  * @file Initializes page and loads main functions
  * @author Ryan Sullivan
- * @version 20130223
+ * @version 20130226
  */
 
 /** @global */
@@ -54,7 +54,7 @@ function specialKeys(event) {
     
     if(event.keyCode == TABKEY) {
         event.preventDefault();
-        this.value += "  ";
+        this.value += "    ";
     }
 }
 
