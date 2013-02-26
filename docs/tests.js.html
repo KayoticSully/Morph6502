@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: output.js</title>
+    <title>JSDoc: Source: tests.js</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Source: output.js</h1>
+    <h1 class="page-title">Source: tests.js</h1>
     
     
 
@@ -26,71 +26,22 @@
     <section>
         <article>
             <pre class="prettyprint source"><code>/**
- * @file Helper functions to display output to the web interface
- * @author Ryan Sullivan
- * @version 20130226
+ * Holds all the test cases to auto-load.  Whitespace is important
+ * @constant
  */
-
-/**
- * Displays compiler output pane
- */
-function displayOutput() {
-    $('#productions').addClass('hidden');
-    $('#output, #clearOutput').removeClass('hidden');
-}
-
-/**
- * Completely clears output and shows productions pane
- */
-function clearOutput() {
-    $('#productions').removeClass('hidden');
-    $('#output, #clearOutput').addClass('hidden');
-    $('.lineselect').removeClass('lineselect');
-}
-
-/**
- * Only clears output pane and line highlighting
- */
-function resetOutput() {
-    // reset line highlighting and output pane
-    $('.lineselect').removeClass('lineselect');
-    $('#output').html('');
-}
-
-/**
- * Controls compiler output
- * 
- * @param {String} line A line to add to output list
- * @param {String} type Classes to add to output list item
- * @param {Boolean} verbose Set to true if log should only be shown when verbose output is on. Default false
- */
-function log(line, type, verbose) {
-    if(verbose === undefined) verbose = false;
-    if(type === undefined) type = '';
-    
-    if((verbose == false) || (verbose == true && logLevel == 'verbose')) {
-        var str =   '&lt;li class="' + type + '">' +
-                        line +
-                    '&lt;/li>';
-                    
-        $('#output').append(str);
-        console.log(line);
-    }
-}
-
-/**
- * Handles the display of errors found during Lexing
- * 
- * @name displayTokenErrors
- * @param {Object} tokenErrors An object with line numbers for keys and the number of errors on that line as values
- */
-function highlightErrorLines(tokenErrors) {
-    for(lineNumber in tokenErrors) {
-        var index = parseInt(lineNumber) - 1
-        $('.codelines .lineno:eq(' + index + ')').addClass('lineselect');
-    }
-    
-    displayOutput();
+const Tests = {
+    testEmpty : "{}$",
+    testDeclareVariable : "int a\n$",
+    testDeclareVariableAlt : "{\n    int a\n}\n$",
+    testStatements : "{\n    P(\"start of example\")\n    int a\n    char b\n\n    a = 1 + 4 + 5\n    a = 1 + a\n\n    b = \"string\"\n}\n$",
+    testLexError : "{\n    !@#%^&*()_\n}\n$",
+    testLexErrorAlt : "{\n    int #\n    char %\n}\n$",
+    testParseError : "{\n    int 1\n    char 42\n}\n$",
+    testParseErrorAlt : "{\n    char b\n    b = \"this 1s a t35t\"\n}\n$",
+    testParseErrorAlt2 : "{\n    P(\"start 0f example\")\n    int a\n    char b\n\n    a = a + 4 + 5\n    a = 1 - a\n\n    b = \"string\"\n    $\n}\n$",
+    testRedeclarationError : "{\n    int a\n    a = 1\n    a = 5 + a\n\n    char a\n}\n$",
+    testWarningEndSymbol : "{\n    P(\"this example does not contain a program end symbol\")\n}",
+    testWarningExtraCode : "{\n    P(\"this example has extra code after the end of program symbol\")\n}\n$\nP(\"this is some extra code\")"
 }</code></pre>
         </article>
     </section>
