@@ -24,8 +24,7 @@ or
 }
 $
 ```
-> No errors or warnings expected in output
-
+> No errors or warnings expected in output\n
 > Symbol a with type T_INT
 
 ###Some Statements
