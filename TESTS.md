@@ -7,6 +7,19 @@ Project 1
 ```
 {}$
 ```
+>------------
+>Lexer Start
+>------------
+>------------
+>Parser Start
+>------------
+>------------
+>Success!
+>------------
+> 
+>Symbol Table
+>------------
+>------------
 
 ###Declare a variable
 ```
@@ -108,4 +121,13 @@ or
 }
 $
 P("this is some extra code")
+```
+
+###Test Cases for Actual Errors I had to Fix
+```
+a
+```
+and
+```
+int
 ```
