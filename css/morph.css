@@ -239,6 +239,11 @@ button.hidden {
 
 .linedwrap .lines {
     margin-right: 0px;
+    border: none;
+}
+
+.codelines .lineno {
+    color:#999999;
 }
 
 .status {
@@ -373,6 +378,7 @@ button.hidden {
     height: 580px;
     width: 100%;
     resize: none;
+    background: transparent;
 }
 
 #input:focus {
