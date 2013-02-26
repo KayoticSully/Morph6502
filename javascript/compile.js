@@ -43,7 +43,7 @@ function compile() {
     //----------------------
     var parseResults = parser.parse(tokenStream);
     var parseErrors = parser.getErrors();
-    
+    alert(parseErrors.length);
     // Output
     if(parseErrors.length > 0) {
         highlightErrorLines(parseErrors);

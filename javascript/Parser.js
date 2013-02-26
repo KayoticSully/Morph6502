@@ -13,6 +13,7 @@ var Parser = function() {
     
     /** The token stream from the Lexer **/
     var tokenStream;
+    var lastToken;
     var errors;
     var symbolTable;
     
@@ -432,6 +433,9 @@ var Parser = function() {
      */
     function consume() {
         
+        // store last token because of an edge case
+        lastToken = tokenStream[0];
+        
         // make sure there is more
         if(tokenStream.length > 0) {
             tokenStream.splice(0, 1);
@@ -464,6 +468,8 @@ var Parser = function() {
         if(tokenStream.length > 0) {
             var token = tokenStream[0];
             return token.line;
+        } else if(lastToken !== undefined) {
+            return lastToken.line;
         } else {
             return 'Last Line';
         }
@@ -483,7 +489,7 @@ var Parser = function() {
         if(errors[line] === undefined) {
             errors[line] = new Array();
         }
-        
+        alert(line);
         // Store error
         // Parser can only detect one error per line so no need for an array here
         errors[line].push(error);
