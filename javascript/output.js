@@ -35,17 +35,21 @@ function resetOutput() {
  * 
  * @param {String} line A line to add to output list
  * @param {String} type Classes to add to output list item
+ * @param {Boolean} verbose Set to true if log should only be shown when verbose output is on. Default false
  */
-function log(line, type) {
+function log(line, type, verbose) {
     
+    if(verbose === undefined) verbose = false;
     if(type === undefined) type = '';
     
-    var str =   '<li class="' + type + '">' +
-                    line +
-                '</li>';
-                
-    $('#output').append(str);
-    console.log(line);
+    if((verbose == false) || (verbose == true && logLevel == 'verbose')) {
+        var str =   '<li class="' + type + '">' +
+                        line +
+                    '</li>';
+                    
+        $('#output').append(str);
+        console.log(line);
+    }
 }
 
 /**

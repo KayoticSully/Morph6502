@@ -213,9 +213,16 @@ body {
 }
 
 button {
-    -webkit-transition: opacity .3s ease-in-out;
-    -moz-transition: opacity .3s ease-in-out;
-    -o-transition: opacity .3s ease-in-out;
+    overflow: hidden;
+    margin: 0px 5px;
+    white-space:nowrap;
+    -webkit-transition: opacity .5s ease-in-out, width .3s ease-in-out;
+    -moz-transition: opacity .5s ease-in-out, width .3s ease-in-out;
+    -o-transition: opacity .5s ease-in-out, width .3s ease-in-out;
+}
+
+button.hidden {
+    width: 0px !important;
 }
 
 /*
@@ -246,7 +253,7 @@ button {
     Title Frame Styles
 */
 #title {
-    margin-top: 50px;
+    margin-top: 100px;
     -webkit-transition: all 1s ease-in-out;
     -moz-transition: all 1s ease-in-out;
     -o-transition: all 1s ease-in-out;
@@ -267,17 +274,22 @@ button {
 /*
     Code Frame Styles
 */
+
+#codeWrapper {
+    width: 100%;
+}
+
 #code.active {
     opacity:1;
 }
 
 #code {
+    position: relative;
     opacity: 0;
     -webkit-transition: opacity 1s ease-in-out;
     -moz-transition: opacity 1s ease-in-out;
     -o-transition: opacity 1s ease-in-out;
-    height:660px;
-    margin-top: 20px;
+    margin-top: 22px;
     outline: none;
 }
 
@@ -286,19 +298,49 @@ button {
 }
 
 
-#controls {
+#inputControls {
     float: left;
     width: 52%;
     position: relative;
 }
 
-#actions {
-    margin-bottom: 7px;
+#appControls {
+    width: 100%;
+    padding:1px 0px;
+}
+
+#settings {
+    width:45%;
+    float: left;
+    font-size: 13px;
+    padding:8px 0px;
     text-align: left;
 }
 
+#actions {
+    width:47%;
+    float: left;
+    font-size: 13px;
+    padding:8px 0px 8px 52px;
+    text-align: left;
+}
+
+#settings .option {
+    float: left;
+    padding:6px 7px;
+}
+
+#settings .option input, #settings .option label {
+    cursor: pointer;
+}
+
+#settings .option label {
+    margin-left: 5px;
+}
+
 #input {
-    height:660px;
+    /*height:660px;*/
+    height: 580px;
     width: 100%;
     resize: none;
 }
@@ -330,7 +372,7 @@ button {
 }
 
 #grammar .rule {
-    margin: 7px 0px;
+    margin: 6px 0px;
 }
 
 #grammar .rule:first-child {
@@ -350,4 +392,9 @@ button {
 #grammar .expressions {
     float: left;
     margin-left: 5px;
+}
+
+#output {
+    height: 547px;
+    overflow: auto;
 }

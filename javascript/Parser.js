@@ -25,7 +25,9 @@ var Parser = function() {
         tokenStream = tokens;
         errors = new Array();
         
+        log('------------');
         log('Parser Start', 'info');
+        log('------------');
         
         // Kick it off!
         var success = parseProgram();
@@ -337,11 +339,19 @@ var Parser = function() {
             displayError = true;
         }
         
+        // log verbose data
+        log("Expecting " + type, 'info', true);
+        
         // see if the token is of the expected type
         var currentTokenType = tokenType();
+        
         if(currentTokenType === type) {
+            // log verbose data
+            log("Got " + currentTokenType, 'info', true);
+            
             // only consume the token if the type matches
             if(consume()) {
+                log("Token Consumed!", 'info', true);
                 // only return true if the token was consumed
                 return true;
             } else {

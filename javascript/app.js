@@ -7,7 +7,8 @@
 /** @global */
 var api,
     lexer,
-    parser;
+    parser,
+    logLevel;
 
 $(document).ready(init);
 
@@ -18,6 +19,7 @@ function init() {
     api = impress();
     api.init();
     setupKeyboardEvents();
+    logLevel = 'normal';
     
     // Start animations while everything loads in
     if(window.location.hash == '' || window.location.hash == '#/step-1')
@@ -53,5 +55,16 @@ function specialKeys(event) {
     if(event.keyCode == TABKEY) {
         event.preventDefault();
         this.value += "  ";
+    }
+}
+
+/**
+ * Toggles verbose mode
+ */
+function setVerbose(event) {
+    if(event.checked) {
+        logLevel = 'verbose';
+    } else {
+        logLevel = 'normal';
     }
 }

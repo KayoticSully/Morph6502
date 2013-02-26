@@ -22,7 +22,9 @@ var Lexer = function() {
      * @returns {Array} An array of tokens
      */
     this.lex = function(src) {
+        log('------------');
         log('Lexer Start', 'info');
+        log('------------');
         // We can assume that the src input is already cleaned
         // make sure values are reset
         currentLine = 1;
@@ -111,6 +113,7 @@ var Lexer = function() {
             // test to see if the next token is this one
             var pattern = Tokens[token].pattern;
             if(pattern.test(str)) {
+                log('Found token ' + token, 'info', true);
                 return token;
             }
         }

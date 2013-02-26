@@ -34,7 +34,7 @@
     -->
     <div id="impress">
         
-        <div class="step" data-x="0" data-y="0" data-z="-4000" data-scale="1">
+        <div id="empty" class="step" data-x="0" data-y="0" data-z="-4000" data-scale="1">
             <!-- This element is empty since the first frame is a blank page -->
         </div>
         
@@ -49,215 +49,222 @@
             Code Entry and Grammar Description
         -->
         <div id="code" class="step fade clearfix" data-x="0" data-y="430" data-scale="1">
-            <div id="controls">
-                <!--
-                    This element is for program entry. It gets spruced up a bit through a
-                    jQuery plugin to add line numbers.
-                -->
-                <textarea id="input" class="lined" wrap="off" placeholder="// Type your code here"></textarea>
-            </div>
-            
             <!--
-                Here a grammar list is provided on the page for reference
+                Application controls include action buttons and settings
             -->
-            <div id="grammar">
-                <!--
-                    Action buttons
-                -->
+            <div id="appControls" class="clearfix">
                 <div id="actions">
                     <button id="compile" class="minimal" onclick="compile();">Compile</button>
                     <button id="clearOutput" class="minimal hidden" onclick="clearOutput()">Clear Output</button>
                 </div>
-                <ul id="productions">
-                    <!-- Program -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            Program
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== Statement <b>$</b>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Statement -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            Statement
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== <b>P</b> <b>(</b> Expr <b>)</b>
-                            </li>
-                            <li>
-                                ::== Id <b>=</b> Expr
-                            </li>
-                            <li>
-                                ::== VarDecl
-                            </li>
-                            <li>
-                                ::== <b>{</b> StatementList <b>}</b>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Statement List -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            StatementList
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== Statement StatementList
-                            </li>
-                            <li>
-                                ::== <b>&#949;</b>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Expression -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            Expr
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== IntExpr
-                            </li>
-                            <li>
-                                ::== CharExpr
-                            </li>
-                            <li>
-                                ::== Id
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Integer Expression -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            IntExpr
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== digit op Expr
-                            </li>
-                            <li>
-                                ::== digit
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Character Expression -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            CharExpr
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== <b>"</b> CharList <b>"</b>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Character List -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            CharList
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== Char CharList
-                            </li>
-                            <li>
-                                ::== <b>&#949;</b>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Variable Declaration -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            VarDecl
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== Type Id
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Type -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            Type
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== <b>int</b> | <b>char</b>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Identifier -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            Id
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== Char
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Character -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            Char
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== <b>a</b> | <b>b</b> | <b>c</b> ... <b>z</b>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Digit -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            digit
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== <b>1</b> | <b>2</b> | <b>3</b> ... <b>9</b> | <b>0</b>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <!-- Operation -->
-                    <li class="rule clearfix">
-                        <div class="production">
-                            op
-                        </div>
-                        <ul class="expressions">
-                            <li>
-                                ::== <b>&#43;</b> | <b>&#45;</b>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul id="output" class="hidden">
-                    
-                </ul>
+                <div id="settings">
+                    <div class="option">
+                        <input id="verbose" onchange="setVerbose(this);" type="checkbox"><label for="verbose">Verbose</label>
+                    </div>
+                </div>
             </div>
-        </div>
-        
-        <!-- Status Elements -->
-        <div class="step status" data-x="0" data-y="1210" data-z="100" data-scale="2">
-            Lexing...
+            <div id="codeWrapper" class="clearfix">
+                <div id="inputControls">
+                    <!--
+                        This element is for program entry. It gets spruced up a bit through a
+                        jQuery plugin to add line numbers.
+                    -->
+                    <textarea id="input" class="lined" wrap="off" placeholder="// Type your code here"></textarea>
+                </div>
+                
+                <!--
+                    Here a grammar list is provided on the page for reference
+                -->
+                <div id="grammar">
+                    <!--
+                        Action buttons
+                    -->
+                    <ul id="productions">
+                        <!-- Program -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                Program
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== Statement <b>$</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Statement -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                Statement
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>P</b> <b>(</b> Expr <b>)</b>
+                                </li>
+                                <li>
+                                    ::== Id <b>=</b> Expr
+                                </li>
+                                <li>
+                                    ::== VarDecl
+                                </li>
+                                <li>
+                                    ::== <b>{</b> StatementList <b>}</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Statement List -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                StatementList
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== Statement StatementList
+                                </li>
+                                <li>
+                                    ::== <b>&#949;</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Expression -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                Expr
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== IntExpr
+                                </li>
+                                <li>
+                                    ::== CharExpr
+                                </li>
+                                <li>
+                                    ::== Id
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Integer Expression -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                IntExpr
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== digit op Expr
+                                </li>
+                                <li>
+                                    ::== digit
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Character Expression -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                CharExpr
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>"</b> CharList <b>"</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Character List -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                CharList
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== Char CharList
+                                </li>
+                                <li>
+                                    ::== <b>&#949;</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Variable Declaration -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                VarDecl
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== Type Id
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Type -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                Type
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>int</b> | <b>char</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Identifier -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                Id
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== Char
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Character -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                Char
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>a</b> | <b>b</b> | <b>c</b> ... <b>z</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Digit -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                digit
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>1</b> | <b>2</b> | <b>3</b> ... <b>9</b> | <b>0</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Operation -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                op
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>&#43;</b> | <b>&#45;</b>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul id="output" class="hidden">
+                        
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
     

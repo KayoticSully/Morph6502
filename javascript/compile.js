@@ -54,7 +54,10 @@ function compile() {
     //----------------------
     // Final Output
     //----------------------
-    log("AWESOMESAUCE :)", 'success');
+    log('------------');
+    log('Final Output', 'info');
+    log('------------');
+    log("Success!", 'success');
     displayOutput();
     return true;
 }
