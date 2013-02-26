@@ -22,20 +22,18 @@ var Lexer = function() {
      * @returns {Array} An array of tokens
      */
     this.lex = function(src) {
+        log('Lexer Start', 'info');
         // We can assume that the src input is already cleaned
-        
         // make sure values are reset
         currentLine = 1;
         errors = new Array();
         
-        // start processing source
-        var results = {
-            tokens : process(src),
-            errors : errors
-        }
-        
         // check for errors
-        return results;
+        return process(src);
+    }
+    
+    this.getErrors = function() {
+        return errors;
     }
     
     /**
@@ -72,12 +70,18 @@ var Lexer = function() {
             
             // error
             case null:
-                // add error count to the current line
-                if(errors[currentLine] == undefined) {
-                    errors[currentLine] = 1;
-                } else {
-                    errors[currentLine]++;
+                var error = currentLine + ' : Unknown token ' + src[0];
+                
+                // Make sure there the line is initialized
+                if(errors[currentLine] === undefined) {
+                    errors[currentLine] = new Array();
                 }
+                
+                // add the error to the line
+                errors[currentLine].push(error);
+                
+                // show error on log
+                log(error, 'error');
             break;
             
             default:

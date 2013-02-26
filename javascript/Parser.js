@@ -13,6 +13,7 @@ var Parser = function() {
     
     /** The token stream from the Lexer **/
     var tokenStream;
+    var errors;
     
     /**
      * Traverses the source code input to verify and build a token stream.
@@ -20,17 +21,29 @@ var Parser = function() {
      * @param {Array} tokens Token Stream from Lex
      */
     this.parse = function(tokens) {
+        // set defaults
         tokenStream = tokens;
+        errors = new Array();
+        
+        log('Parser Start', 'info');
         
         // Kick it off!
-        return parseProgram();
+        var success = parseProgram();
+        
+        if(success && tokenStream.length != 0) {
+            log("Warning: Content after end of program symbol ($) ignored.", 'warning');
+        }
+    }
+    
+    this.getErrors = function() {
+        return errors;
     }
     
     //-----------------------
     // Productions
     //-----------------------
     /**
-     * Checks for the Program production
+     * Checks for the Program production | Statement $
      */
     function parseProgram() {
         if(!parseStatement()) return false;
@@ -78,69 +91,48 @@ var Parser = function() {
         return false;
     }
     
+    /**
+     * Checks for the Statement production P(Expr)
+     */
     function subStatement1() {
-        if(checkToken(T_P)) {
-            
+        if(checkToken(T_P) && checkToken(T_PAREN_OPEN) && parseExpr() && checkToken(T_PAREN_CLOSE)) {
+            return true;
         } else {
             return false;
         }
-        
-        if(checkToken(T_PAREN_OPEN)) {
-            
-        } else {
-            return false;
-        }
-        
-        if(!parseExpr()) return false;
-        
-        if(checkToken(T_PAREN_CLOSE)) {
-            
-        } else {
-            return false;
-        }
-        
-        return true;
     }
     
+    /**
+     * Checks for the Statement production Id = Expr
+     */
     function subStatement2() {
-        if(!parseId()) return false;
-        
-        if(checkToken(T_EQUALS)) {
-            
+        if(parseId() && checkToken(T_EQUALS) && parseExpr()) {
+            return true;
         } else {
             return false;
         }
-        
-        if(!parseExpr()) return false;
-        
-        return true;
     }
     
+    /**
+     * Checks for the Statement production VarDecl
+     */
     function subStatement3() {
         return parseVarDecl();
     }
     
+    /**
+     * Checks for the Statement production {StatementList}
+     */
     function subStatement4() {
-        
-        if(checkToken(T_BRACE_OPEN)) {
-            
-        } else {
+        if(checkToken(T_BRACE_OPEN) && parseStatementList() && checkToken(T_BRACE_CLOSE)) {
+            return true;
+        } else  {
             return false;
         }
-        
-        if(!parseStatementList()) return false;
-        
-        if(checkToken(T_BRACE_CLOSE)) {
-            
-        } else {
-            return false;
-        }
-        
-        return true;
     }
     
     /**
-     * Checks for the StatementList production
+     * Checks for the StatementList production | Statement StatementList || Epsilon
      */
     function parseStatementList() {
         // See if a statement is possible.  If it is try to parse it,
@@ -151,11 +143,11 @@ var Parser = function() {
             case T_INT:
             case T_CHAR:
             case T_BRACE_OPEN:
-                if(parseStatement()) {
-                    return parseStatementList();
-                } else {
-                    return false;
-                }
+                // It actually does not matter what this returns.
+                // If there is an error, it will be logged and we want to move
+                // onto the next line anyway
+                parseStatement();
+                return parseStatementList();
             break;
             
             default:
@@ -170,16 +162,19 @@ var Parser = function() {
      */
     function parseExpr() {
         switch(tokenType()) {
+            // Production IntExpr
             case T_DIGIT:
-                return subExpr1();
+                return parseIntExpr();
             break;
             
+            // Production CharExpr
             case T_QUOTE:
-                return subExpr2();
+                return parseCharExpr();
             break;
             
-            case T_CHAR:
-                return subExpr3();
+            // Production Id
+            case T_CHARACTER:
+                return parseId();
             break;
             
             default:
@@ -189,71 +184,20 @@ var Parser = function() {
         return false;
     }
     
-    function subExpr1() {
-        return parseIntExpr();
-    }
-    
-    function subExpr2() {
-        return parseCharExpr();
-    }
-    
-    function subExpr3() {
-        return parseId();
-    }
-    
     /**
-     * Checks for the IntExpr production
+     * Checks for the IntExpr production | digit op Expr || digit
      */
     function parseIntExpr() {
-        var forwardToken = lookAhead(1);
-        
-        switch(forwardToken) {
-            case T_MINUS:
-            case T_PLUS:
-                return subIntExpr();
-            break;
-            
-            default:
-                return parseDigit();
-        }
-        
-        return false;
-    }
-    
-    function subIntExpr() {
-        if(!parseDigit()) return false;
-        
-        if(!parseOp()) return false;
-        
-        if(!parseExpr()) return false;
-        
-        return true;
-    }
-    
-    /**
-     * Checks for the CharExpr production
-     */
-    function parseCharExpr() {
-        if(!parseQuote()) {
-            return false;
-        }
-        
-        if(!parseCharList()) {
-            return false;
-        }
-        
-        if(!parseQuote()) {
-            return false;
-        }
-        
-        return true;
-    }
-    
-    /**
-     * Checks for the Quote sub-production
-     */
-    function parseQuote() {
-        if(checkToken(T_QUOTE)) {
+        // this has to start with a digit
+        if(parseDigit()) {
+            // see if there is an operation after
+            // if not just return true we are done here
+            switch(tokenType()) {
+                case T_MINUS:
+                case T_PLUS:
+                    return subIntExpr();
+                break;
+            }
             
             return true;
         } else {
@@ -262,7 +206,40 @@ var Parser = function() {
     }
     
     /**
-     * Checks for the CharList production
+     * Checks for the sub-production op Expr
+     */
+    function subIntExpr() {
+        if(parseOp() && parseExpr()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Checks for the CharExpr production | "CharList"
+     */
+    function parseCharExpr() {
+        if(parseQuote() && parseCharList() && parseQuote()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Checks for the Quote sub-production | "
+     */
+    function parseQuote() {
+        if(checkToken(T_QUOTE)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Checks for the CharList production | Char CharList || Epsilon
      */
     function parseCharList() {
         // See if a character is possible.  If it is try to parse it,
@@ -284,18 +261,18 @@ var Parser = function() {
     }
     
     /**
-     * Checks for the VarDecl production
+     * Checks for the VarDecl production | Type Id
      */
     function parseVarDecl() {
-        if(!parseType()) return false;
-        
-        if(!parseId()) return false;
-        
-        return true;
+        if(parseType() && parseId()) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     /**
-     * Checks for the Type production
+     * Checks for the Type production | int || char
      */
     function parseType() {
         if(multiCheckToken([T_INT, T_CHAR])) {
@@ -306,14 +283,14 @@ var Parser = function() {
     }
     
     /**
-     * Checks for the Id production
+     * Checks for the Id production | Char
      */
     function parseId() {
         return parseCharacter();
     }
     
     /**
-     * Checks for the Character production
+     * Checks for the Character production | a || b || c ... z
      */
     function parseCharacter() {
         if(checkToken(T_CHARACTER)) {
@@ -324,11 +301,10 @@ var Parser = function() {
     }
     
     /**
-     * Checks for the Digit production
+     * Checks for the Digit production | 1 || 2 || 3 ... 9 || 0
      */
     function parseDigit() {
         if(checkToken(T_DIGIT)) {
-            
             return true;
         } else {
             return false;
@@ -336,7 +312,7 @@ var Parser = function() {
     }
     
     /**
-     * Checks for the Op production
+     * Checks for the Op production | + || -
      */
     function parseOp() {
         if(multiCheckToken([T_PLUS, T_MINUS])) {
@@ -452,7 +428,22 @@ var Parser = function() {
      * @param {String} expected The expected token type
      */
     function expectedError(expected) {
-        log(tokenLine() + " : Expected " + expected + ", found " + tokenType(), 'error');
+        // build error info
+        var line = tokenLine();
+        var error = line + " : Expected " + expected + ", found " + tokenType();
+        
+        // Make sure there the line is initialized
+        if(errors[line] === undefined) {
+            errors[line] = new Array();
+        }
+        
+        // Store error
+        // Parser can only detect one error per line so no need for an array here
+        errors[line] = error;
+        
+        // log error
+        log(error, 'error');
+        
         // disregard rest of line
         nextLine();
     }

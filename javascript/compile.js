@@ -23,32 +23,38 @@ function compile() {
     //----------------------
     // Lexer
     //----------------------
-    log('Lexer:', 'info');
-    var lexerReults = lexer.lex(source);
-    var tokenStream = lexerReults.tokens;
-    var tokenErrors = lexerReults.errors;
+    var tokenStream = lexer.lex(source);
+    var tokenErrors = lexer.getErrors();
     
-    if(tokenErrors.length > 0)
-    {
-        displayTokenErrors(tokenErrors);
-        return false;
+    // Output
+    if(tokenErrors.length > 0) {
+        highlightErrorLines(tokenErrors);
+        return false; // stop execution here
     }
     
     // print out token stream to console
+    console.log('Token Stream');
     for(token in tokenStream) {
         console.log(tokenStream[token]);
     }
     
-    log('Parser:', 'info');
+    //----------------------
+    // Parser
+    //----------------------
     var parseResults = parser.parse(tokenStream);
+    var parseErrors = parser.getErrors();
     
-    if(parseResults) {
-        log("AWESOMESAUCE :)", 'success');
-    } else {
-        log("AWEFULSAUCE :(", 'error');
+    // Output
+    if(parseErrors.length > 0) {
+        highlightErrorLines(parseErrors);
+        return false; // stop execution here
     }
     
-    displayOutput();
     
+    //----------------------
+    // Final Output
+    //----------------------
+    log("AWESOMESAUCE :)", 'success');
+    displayOutput();
     return true;
 }

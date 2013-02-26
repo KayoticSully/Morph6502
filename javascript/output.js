@@ -43,7 +43,9 @@ function log(line, type) {
     var str =   '<li class="' + type + '">' +
                     line +
                 '</li>';
+                
     $('#output').append(str);
+    console.log(line);
 }
 
 /**
@@ -52,23 +54,8 @@ function log(line, type) {
  * @name displayTokenErrors
  * @param {Object} tokenErrors An object with line numbers for keys and the number of errors on that line as values
  */
-function displayTokenErrors(tokenErrors) {
+function highlightErrorLines(tokenErrors) {
     for(lineNumber in tokenErrors) {
-        var errors = tokenErrors[lineNumber];
-        var amountModifier = 's';
-        var preposition = 'are';
-        
-        if(errors == 1) {
-            amountModifier = ' ';
-            preposition = 'is ';
-        }
-        
-        var str =   'There ' + preposition + ' ' +
-                    errors + ' unknown character' + amountModifier +
-                    ' on line ' + lineNumber;
-        
-        log(str, 'error');
-        
         var index = parseInt(lineNumber) - 1
         $('.codelines .lineno:eq(' + index + ')').addClass('lineselect');
     }
