@@ -13,6 +13,7 @@
 var Lexer = function() {
     
     var currentLine = 1;
+    var inQuote = false;
     var errors = new Array();
     
     /**
@@ -66,12 +67,27 @@ var Lexer = function() {
         switch(tokenType) {
             case CT_NEW_LINE:
                 currentLine++;
-                // return next token to remove this from the token stream
-                return process(progress);
+                
+                // if in a quote add into stream
+                if(this.inQuote) {
+                    token.type = tokenType;
+                    token.line = currentLine;
+                    token.value = src.substr(0, length);
+                } else {
+                    // return next token to remove this from the token stream
+                    return process(progress);
+                }
             break;
             
             case CT_SPACE:
-                return process(progress);
+                if(this.inQuote) {
+                    token.type = tokenType;
+                    token.line = currentLine;
+                    token.value = src.substr(0, length);
+                } else {
+                    return process(progress);
+                }
+                
             break;
             
             // error
@@ -90,6 +106,9 @@ var Lexer = function() {
                 log(error, 'error');
             break;
             
+            case T_QUOTE:
+                this.inQuote = !this.inQuote;
+            // fall through
             default:
                 token.type = tokenType;
                 token.line = currentLine;
