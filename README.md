@@ -47,3 +47,4 @@ Other :)
 *   I did my best to catch multiple errors at once in the parse phase.  Sometimes a line is skipped when an error appears on the previous line.
 *   All of my test cases are loadable through the links on the left hand side of the page.
 *   Most if not all of the animations are done in CSS3, you challenged me... but I didn't want to use jQuery (for that).  CSS3 animations are actually much easier to use!
+*   Fun Fact: The compiler can parse up to about 5200 token before chrome crashes.
