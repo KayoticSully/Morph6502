@@ -83,39 +83,31 @@ var Parser = function() {
      */
     function parseStatement() {
         var type = tokenType();
-        console.log('PARSE STATEMENT : ' + type);
         // run the proper sub-parse for the current token type
         
         // this may be the first set.... need to compute that.
         var types = new Array(T_P, T_CHARACTER, T_INT, T_CHAR, T_BRACE_OPEN);
-        console.log(type + ' ::: ' + types);
         
         if(types.indexOf(type) >= 0 ) {
-            console.log('true');
             switch(type) {
                 case T_P:
-                    console.log('3');
                     return subStatement1();
                 break;
                 
                 case T_CHARACTER:
-                    console.log('2');
                     return subStatement2();
                 break;
                 
                 case T_INT:
                 case T_CHAR:
-                    console.log('1');
                     return subStatement3();
                 break;
                 
                 case T_BRACE_OPEN:
-                    console.log('yay brace');
                     return subStatement4();
                 break;
             }
         } else {
-            console.log('false');
             expectedError(types.join("|"));
             return false;
         }
@@ -156,7 +148,6 @@ var Parser = function() {
      * Checks for the Statement production {StatementList}
      */
     function subStatement4() {
-        console.log("Parse Statement List");
         if(checkToken(T_BRACE_OPEN) && parseStatementList() && checkToken(T_BRACE_CLOSE)) {
             return true;
         } else  {
@@ -253,7 +244,6 @@ var Parser = function() {
      * Checks for the CharExpr production | "CharList"
      */
     function parseCharExpr() {  
-        console.log("CHAR EXPR");
         if(parseQuote() && parseCharList() && parseQuote()) {
             return true;
         } else {
@@ -265,7 +255,6 @@ var Parser = function() {
      * Checks for the Quote sub-production | "
      */
     function parseQuote() {
-        console.log("CHECKING QUOTE: " + tokenType());
         if(checkToken(T_QUOTE)) {
             return true;
         } else {

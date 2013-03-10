@@ -69,7 +69,7 @@ var Lexer = function() {
                 currentLine++;
             case CT_SPACE:
                 // if in a quote add into stream
-                if(this.inQuote) {
+                if(inQuote) {
                     token.type = tokenType;
                     token.line = currentLine;
                     token.value = src.substr(0, length);
@@ -96,7 +96,7 @@ var Lexer = function() {
             break;
             
             case T_QUOTE:
-                this.inQuote = !this.inQuote;
+                inQuote = !inQuote;
             // fall through
             default:
                 token.type = tokenType;
@@ -114,15 +114,18 @@ var Lexer = function() {
     }
     
     /**
-     * Finds a token at the beginning of the source input.
+     * Finds a token at the beginning of the source input if one exists
      * 
      * @param {String} str A chunk of source code to be tested for a token at the start.
      * @returns {String} A token constant that represents the type of token found.
      */
     function findToken(str) {
-        // for each possible token
         for(token in Tokens) {
-            // test to see if the next token is this one
+            // While in quotes we don't care about multi-character tokens
+            if(inQuote && Tokens[token].length > 1) {
+                continue;
+            }
+            
             var pattern = Tokens[token].pattern;
             if(pattern.test(str)) {
                 log('Found token ' + token, 'info', true);
