@@ -67,7 +67,7 @@ var Lexer = function() {
         switch(tokenType) {
             case CT_NEW_LINE:
                 currentLine++;
-                
+            case CT_SPACE:
                 // if in a quote add into stream
                 if(this.inQuote) {
                     token.type = tokenType;
@@ -77,17 +77,6 @@ var Lexer = function() {
                     // return next token to remove this from the token stream
                     return process(progress);
                 }
-            break;
-            
-            case CT_SPACE:
-                if(this.inQuote) {
-                    token.type = tokenType;
-                    token.line = currentLine;
-                    token.value = src.substr(0, length);
-                } else {
-                    return process(progress);
-                }
-                
             break;
             
             // error
