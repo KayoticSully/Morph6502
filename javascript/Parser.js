@@ -86,11 +86,11 @@ var Parser = function() {
         // run the proper sub-parse for the current token type
         
         // this may be the first set.... need to compute that.
-        var types = new Array(T_P, T_CHARACTER, T_INT, T_CHAR, T_BRACE_OPEN);
+        var types = new Array(T_PRINT, T_CHARACTER, T_INT, T_STRING, T_BRACE_OPEN);
         
         if(types.indexOf(type) >= 0 ) {
             switch(type) {
-                case T_P:
+                case T_PRINT:
                     return subStatement1();
                 break;
                 
@@ -99,7 +99,7 @@ var Parser = function() {
                 break;
                 
                 case T_INT:
-                case T_CHAR:
+                case T_STRING:
                     return subStatement3();
                 break;
                 
@@ -119,7 +119,7 @@ var Parser = function() {
      * Checks for the Statement production P(Expr)
      */
     function subStatement1() {
-        if(checkToken(T_P) && checkToken(T_PAREN_OPEN) && parseExpr() && checkToken(T_PAREN_CLOSE)) {
+        if(checkToken(T_PRINT) && checkToken(T_PAREN_OPEN) && parseExpr() && checkToken(T_PAREN_CLOSE)) {
             return true;
         } else {
             return false;
@@ -162,10 +162,10 @@ var Parser = function() {
         // See if a statement is possible.  If it is try to parse it,
         // if not return true, since this production can go to epsilon.
         switch(tokenType()) {
-            case T_P:
+            case T_PRINT:
             case T_CHARACTER:
             case T_INT:
-            case T_CHAR:
+            case T_STRING:
             case T_BRACE_OPEN:
                 // It actually does not matter what this returns.
                 // If there is an error, it will be logged and we want to move
@@ -193,7 +193,7 @@ var Parser = function() {
             
             // Production CharExpr
             case T_QUOTE:
-                return parseCharExpr();
+                return parseStringExpr();
             break;
             
             // Production Id
@@ -243,7 +243,7 @@ var Parser = function() {
     /**
      * Checks for the CharExpr production | "CharList"
      */
-    function parseCharExpr() {  
+    function parseStringExpr() {  
         if(parseQuote() && parseCharList() && parseQuote()) {
             return true;
         } else {
@@ -268,6 +268,8 @@ var Parser = function() {
     function parseCharList() {
         // See if a character is possible.  If it is try to parse it,
         // if not return true, since this production can go to epsilon.
+        
+        // This is ugly, probably bad practice, but it works.
         switch(tokenType()) {
             case T_CHARACTER:
                 if(parseCharacter()) {
@@ -277,8 +279,13 @@ var Parser = function() {
                 }
             break;
             
-            default:
-                return true;
+            case CT_SPACE:
+                if(parseSpace()) {
+                    return parseCharList();
+                } else {
+                    return false;
+                }
+            break;
         }
         
         return true;
@@ -322,7 +329,7 @@ var Parser = function() {
      * Checks for the Type production | int || char
      */
     function parseType() {
-        if(multiCheckToken([T_INT, T_CHAR])) {
+        if(multiCheckToken([T_INT, T_STRING])) {
             return true;
         } else {
             return false;
@@ -341,6 +348,17 @@ var Parser = function() {
      */
     function parseCharacter() {
         if(checkToken(T_CHARACTER)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Checks for the Space production 
+     */
+    function parseSpace() {
+        if(checkToken(CT_SPACE)) {
             return true;
         } else {
             return false;

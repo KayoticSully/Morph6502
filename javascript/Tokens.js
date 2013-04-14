@@ -9,7 +9,7 @@
 //-----------------------------------
 const
     T_INT             = 'T_INT',            /** @constant {String} T_INT */
-    T_CHAR            = 'T_CHAR',           /** @constant {String} T_CHAR */
+    T_STRING          = 'T_STRING',         /** @constant {String} T_STRING */
     T_DIGIT           = 'T_DIGIT',          /** @constant {String} T_DIGIT */
     T_CHARACTER       = 'T_CHARACTER',      /** @constant {String} T_CHARACTER */
     T_BRACE_OPEN      = 'T_BRACE_OPEN',     /** @constant {String} T_BRACE_OPEN */
@@ -18,7 +18,7 @@ const
     T_PAREN_OPEN      = 'T_PAREN_OPEN',     /** @constant {String} T_PAREN_OPEN */
     T_PAREN_CLOSE     = 'T_PAREN_CLOSE',    /** @constant {String} T_PAREN_CLOSE */
     T_EQUALS          = 'T_EQUALS',         /** @constant {String} T_EQUALS */
-    T_P               = 'T_P',              /** @constant {String} T_P */
+    T_PRINT           = 'T_PRINT',          /** @constant {String} T_PRINT */
     T_QUOTE           = 'T_QUOTE',          /** @constant {String} T_QUOTE */
     T_PLUS            = 'T_PLUS',           /** @constant {String} T_PLUS */
     T_MINUS           = 'T_MINUS',          /** @constant {String} T_MINUS */
@@ -37,7 +37,7 @@ const
 // be source code after the symbol.
 const
     R_INT             = /^int/,             /** @constant {Pattern} R_INT */
-    R_CHAR            = /^char/,            /** @constant {Pattern} R_CHAR */
+    R_STRING          = /^string/,          /** @constant {Pattern} R_STRING */
     R_DIGIT           = /^[0-9]/,           /** @constant {Pattern} R_DIGIT */
     R_CHARACTER       = /^[a-z]/,           /** @constant {Pattern} R_CHARACTER */
     R_BRACE_OPEN      = /^[{]/,             /** @constant {Pattern} R_BRACE_OPEN */
@@ -46,7 +46,7 @@ const
     R_PAREN_OPEN      = /^[(]/,             /** @constant {Pattern} R_PAREN_OPEN */
     R_PAREN_CLOSE     = /^[)]/,             /** @constant {Pattern} R_PAREN_CLOSE */
     R_EQUALS          = /^[=]/,             /** @constant {Pattern} R_EQUALS */
-    R_P               = /^[P]/,             /** @constant {Pattern} R_P */
+    R_PRINT           = /^print/,           /** @constant {Pattern} R_PRINT */
     R_QUOTE           = /^["|']/,           /** @constant {Pattern} R_QUOTE */
     R_PLUS            = /^[+]/,             /** @constant {Pattern} R_PLUS */
     R_MINUS           = /^[-]/,             /** @constant {Pattern} R_MINUS */
@@ -64,7 +64,8 @@ var Tokens = {
     // Reserved words need to go first, otherwise each
     // character will get identified as T_CHARACTER tokens
     T_INT           : { pattern: R_INT,         length: 3 },
-    T_CHAR          : { pattern: R_CHAR,        length: 4 },
+    T_STRING        : { pattern: R_STRING,      length: 6 },
+    T_PRINT         : { pattern: R_PRINT,       length: 5 },
     // Now all other symbols
     T_DIGIT         : { pattern: R_DIGIT,       length: 1 },
     T_CHARACTER     : { pattern: R_CHARACTER,   length: 1 },
@@ -74,7 +75,6 @@ var Tokens = {
     T_PAREN_OPEN    : { pattern: R_PAREN_OPEN,  length: 1 },
     T_PAREN_CLOSE   : { pattern: R_PAREN_CLOSE, length: 1 },
     T_EQUALS        : { pattern: R_EQUALS,      length: 1 },
-    T_P             : { pattern: R_P,           length: 1 },
     T_QUOTE         : { pattern: R_QUOTE,       length: 1 },
     T_PLUS          : { pattern: R_PLUS,        length: 1 },
     T_MINUS         : { pattern: R_MINUS,       length: 1 },
