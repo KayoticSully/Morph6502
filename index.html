@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Morph6502 by KayoticSully</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Morph6502</h1>
+        <h2>A compiler for a simple syntax into 6502 hex machine code</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/KayoticSully/Morph6502/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/KayoticSully/Morph6502/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/KayoticSully/Morph6502" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>M o r p h 6 5 0 2</h1>
+
+<p>This is a project for my compilers class.  The main goal is to be able to compile a rather simplistic language into 6502 hex op-codes.  The main parts of the project are a Lexer, a Parser and a Code Generator.</p>
+
+<h2>Submodules</h2>
+
+<p>This project uses Impress.js for its interface.  I have linked my fork of Impress.js as a submodule.  You need to run <code>submodule init</code> and <code>submodule update</code> to get this dependency installed.</p>
+
+<p>For more information on Git submodules check out <a href="http://git-scm.com/book/en/Git-Tools-Submodules">this article</a>.  This is my first use of submodules and found that article very helpful to get started.</p>
+
+<h2>Documentation</h2>
+
+<p>I am using Google's JSDocs to generate documentation.  These files can be found in the docs folder.</p>
+
+<h1>Notes (Project 1)</h1>
+
+<h2>T_ Constants</h2>
+
+<p>These are token constants that the lexer will put into the token stream.</p>
+
+<h2>CT_ Constants</h2>
+
+<p>These are "Control Token" constants that the lexer will use but not include in the token stream</p>
+
+<h2>R_ Constants</h2>
+
+<p>These are the RegEx pattern constants for the corresponding token constants.</p>
+
+<h2>Input</h2>
+
+<p>Keyboard input behaves as you would expect in the textarea with a single exception.  Tab does indent the current line, but only when there is no code after the cursor.  Otherwise it adds the spaces to the end of the code and drops the cursor there.</p>
+
+<h2>Output</h2>
+
+<p>The output is color coded:</p>
+
+<ul>
+<li>  Green text is used to identify important symbols and words in the output</li>
+<li>  Blue text is used to provide extra information</li>
+<li>  Orange/Yellow text is used to display warnings. (Along with the word "Warning:")</li>
+<li>  Red text is used to display errors in the format "Line Number : Error Message"</li>
+<li>  Black text is used for formatting</li>
+</ul><p>Line numbers will also be highlighted in red if an error appears on that line.</p>
+
+<h2>Other :)</h2>
+
+<ul>
+<li>  The symbol table is printed after all other output and will not print if there have been errors</li>
+<li>  I did my best to catch multiple errors at once in the parse phase.  Sometimes a line is skipped when an error appears on the previous line.</li>
+<li>  All of my test cases are loadable through the links on the left hand side of the page.</li>
+<li>  Most if not all of the animations are done in CSS3, you challenged me... but I didn't want to use jQuery (for that).  CSS3 animations are actually much easier to use!</li>
+<li>  Fun Fact: The compiler can parse up to about 5200 token before chrome crashes.</li>
+</ul>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
