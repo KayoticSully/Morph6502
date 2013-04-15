@@ -8,7 +8,8 @@
 var api,
     lexer,
     parser,
-    logLevel;
+    logLevel,
+    continuous;
 
 $(document).ready(init);
 
@@ -66,6 +67,17 @@ function setVerbose(event) {
         logLevel = 'verbose';
     } else {
         logLevel = 'normal';
+    }
+}
+
+/**
+ * Toggles continuous mode
+ */
+function setContinuous(event) {
+    if (event.checked) {
+        continuous = setInterval(compile, 500);
+    } else {
+        clearInterval(continuous);
     }
 }
 

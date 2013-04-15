@@ -66,6 +66,7 @@ function compile() {
     printSymbolTable(symbolTable);
     
     displayOutput();
+    
     return true;
 }
 
