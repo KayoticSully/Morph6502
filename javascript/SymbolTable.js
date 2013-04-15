@@ -95,18 +95,32 @@ Scope.prototype.addSymbol = function(symbol) {
     }
 }
 
-Scope.prototype.getSymbol = function(id) {
-    for (index in this.symbols) {
-        if (this.symbols[index].id == id) {
-            return this.symbols[index];
+Scope.prototype.getSymbol = function(id, recurse) {
+    if (recurse == undefined) {
+        recurse = false;
+    }
+    
+    var worker = this;
+    while (worker != null) {
+        for (index in worker.symbols) {
+            if (worker.symbols[index].id == id) {
+                return worker.symbols[index];
+            }
         }
+        
+        if (recurse) {
+            worker = worker.parent;
+        } else {
+            worker = null;
+        }
+        
     }
     
     return false;
 }
 
-Scope.prototype.hasId = function(id) {
-    if (this.getSymbol(id) != false) {
+Scope.prototype.hasId = function(id, recurse) {
+    if (this.getSymbol(id, recurse) != false) {
         return true;
     }
     
@@ -114,7 +128,7 @@ Scope.prototype.hasId = function(id) {
 }
 
 Scope.prototype.usedSymbol = function(id) {
-    var symbol = this.getSymbol(id);
+    var symbol = this.getSymbol(id, true);
     
     if (symbol != false) {
         symbol.used = true;
@@ -122,7 +136,7 @@ Scope.prototype.usedSymbol = function(id) {
 }
 
 Scope.prototype.initializedSymbol = function(id) {
-    var symbol = this.getSymbol(id);
+    var symbol = this.getSymbol(id, true);
     
     if (symbol != false) {
         symbol.initialized = true;
