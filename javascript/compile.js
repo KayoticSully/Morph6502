@@ -64,11 +64,6 @@ function compile() {
     log('Symbol Table', 'info');
     
     printSymbolTable(symbolTable);
-    //for(var symbol in symbolTable) {
-    //    var entry = '<span class="success">' + symbol + '</span> | <span class="info">' + symbolTable[symbol] + '</span>';
-    //    log(entry);
-    //}
-    log('------------');
     
     displayOutput();
     return true;
@@ -80,8 +75,9 @@ function printSymbolTable(symbolTable) {
     
     function printScope(scope) {
         //alert('new scope!');
-        log('------------');
         printSymbols(scope);
+        
+        log('------------------------------------');
         
         prefix += '-';
         for (var scopeIndex in scope.subScopes) {
@@ -94,7 +90,22 @@ function printSymbolTable(symbolTable) {
     function printSymbols(scope) {
         for(var symbolIndex in scope.symbols) {
             var symbol = scope.symbols[symbolIndex];
-            var entry = prefix + ' <span class="success">' + symbol.id + '</span> | <span class="info">' + symbol.type + '</span>';
+            var entry = prefix +
+                ' <span class="success">' +
+                    symbol.id +
+                '</span>' +
+                    ' | ' +
+                '<span class="info">' +
+                    symbol.type +
+                '</span>' +
+                    ' | ' +
+                '<span class="info">' +
+                    symbol.initialized +
+                '</span>' +
+                    ' | ' +
+                '<span class="info">' +
+                    symbol.used +
+                '</span>';
             log(entry);
         }
     }

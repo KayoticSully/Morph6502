@@ -27,7 +27,8 @@ SymbolTable.prototype.addIdentifier = function(id, type) {
     var added = this.workingScope.addSymbol(symbol);
     
     if (added) {
-        log('New Identifier: ' + id + " | " + type, 'info');
+        var message = 'Identifier: ' + symbol.id + " | " + symbol.type + ' on line ' + symbol.line;
+        log(message, 'info');
     }
     
     return added;
@@ -38,11 +39,38 @@ SymbolTable.prototype.addIdentifier = function(id, type) {
  * 
  * @class
  * @author Ryan Sullivan
- * @version 20130414
+ * @version 20130415
  */
-var Symbol = function(identifier, symbolType) {
-    this.id = identifier;
-    this.type = symbolType;
+var Symbol = function(idToken, typeToken) {
+    // idToken and typeToken are private variables
+    // and can be used as such
+    
+    this.used = false;
+    this.initialized = false;
+    
+    Object.defineProperty(this, 'id', {
+        writeable       : false,
+        enumerable      : false,
+        get             : function() {
+            return idToken.value;
+        }
+    });
+    
+    Object.defineProperty(this, 'type', {
+        writeable       : false,
+        enumerable      : false,
+        get             : function() {
+            return typeToken.type;
+        }
+    });
+    
+    Object.defineProperty(this, 'line', {
+        writeable       : false,
+        enumerable      : false,
+        get             : function() {
+            return idToken.line;
+        }
+    });
 }
 
 /**
@@ -67,12 +95,36 @@ Scope.prototype.addSymbol = function(symbol) {
     }
 }
 
-Scope.prototype.hasId = function(id) {
+Scope.prototype.getSymbol = function(id) {
     for (index in this.symbols) {
         if (this.symbols[index].id == id) {
-            return true;
+            return this.symbols[index];
         }
     }
     
     return false;
+}
+
+Scope.prototype.hasId = function(id) {
+    if (this.getSymbol(id) != false) {
+        return true;
+    }
+    
+    return false;
+}
+
+Scope.prototype.usedSymbol = function(id) {
+    var symbol = this.getSymbol(id);
+    
+    if (symbol != false) {
+        symbol.used = true;
+    }
+}
+
+Scope.prototype.initializedSymbol = function(id) {
+    var symbol = this.getSymbol(id);
+    
+    if (symbol != false) {
+        symbol.initialized = true;
+    }
 }

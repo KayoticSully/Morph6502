@@ -130,7 +130,7 @@ var Parser = function() {
      * Checks for the Statement production Id = Expr
      */
     function subStatement2() {
-        if(parseId() && checkToken(T_EQUALS) && parseExpr()) {
+        if(parseId('initialized') && checkToken(T_EQUALS) && parseExpr()) {
             return true;
         } else {
             return false;
@@ -198,7 +198,7 @@ var Parser = function() {
             
             // Production Id
             case T_CHARACTER:
-                return parseId();
+                return parseId('used');
             break;
             
             default:
@@ -299,9 +299,9 @@ var Parser = function() {
         var typeToken = tokenStream[0];
         var idToken   = tokenStream[1];
         
-        if(parseType() && parseId()) {
+        if(parseType() && parseId('declared')) {
             // see if new variable declaration is in the symbol table
-            if(! symbolTable.addIdentifier(idToken.value, typeToken.type)) {
+            if(! symbolTable.addIdentifier(idToken, typeToken)) {
                 var line = idToken.line;
                 var error = line + " : Redeclared Identifier " + idToken.value;
                 
@@ -315,14 +315,6 @@ var Parser = function() {
                 // log error
                 log(error, 'error');
             }
-            
-            
-            //if(idToken.value in symbolTable) {
-                
-                
-            //} else {
-                //symbolTable[idToken.value] = typeToken.type;
-            //}
             
             return true;
         } else {
@@ -344,7 +336,33 @@ var Parser = function() {
     /**
      * Checks for the Id production | Char
      */
-    function parseId() {
+    function parseId(action) {
+        // if newId is not set to true, it means
+        // an identifier is being used and should
+        // be in the symbol table
+        
+        if (action !== 'declared') {
+            var id = tokenValue();
+            
+            if(! symbolTable.workingScope.hasId(id)) {
+                var msg = "Undeclared identifier " + id;
+                logError(tokenLine(), msg)
+                return false;
+            }
+            
+            // set attribues now that we know
+            // the id is valid
+            switch (action) {
+                case 'initialized':
+                    symbolTable.workingScope.initializedSymbol(id);
+                break;
+                
+                case 'used':
+                    symbolTable.workingScope.usedSymbol(id);
+                break;
+            }   
+        }
+        
         return parseCharacter();
     }
     
@@ -518,6 +536,22 @@ var Parser = function() {
     }
     
     /**
+     * Get the value of the current token
+     *
+     * @returns {string} value
+     */
+    function tokenValue() {
+        if(tokenStream.length > 0) {
+            var token = tokenStream[0];
+            return token.value;
+        } else if(lastToken !== undefined) {
+            return lastToken.value;
+        } else {
+            return '';
+        }
+    }
+    
+    /**
      * Logs an error of the format "Expected x, found y"
      *
      * @param {String} expected The expected token type
@@ -525,19 +559,32 @@ var Parser = function() {
     function expectedError(expected) {
         // build error info
         var line = tokenLine();
-        var error = line + " : Expected " + expected + ", found " + tokenType();
+        var error = "Expected " + expected + ", found " + tokenType();
         
+        logError(line, error);
+    }
+    
+    /**
+     * Stores and logs error in format line : message
+     *
+     * @param {int} line error is on
+     * @param {string} error message
+     */
+    function logError(line, message) {
         // Make sure there the line is initialized
         if(errors[line] === undefined) {
             errors[line] = new Array();
         }
         
+        // format message
+        message = line + " : " + message;
+        
         // Store error
         // Parser can only detect one error per line so no need for an array here
-        errors[line].push(error);
+        errors[line].push(message);
         
         // log error
-        log(error, 'error');
+        log(message, 'error');
         
         // disregard rest of line
         nextLine();
