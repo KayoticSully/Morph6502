@@ -90,7 +90,7 @@ var Tokens = {
  * @author Ryan Sullivan
  * @version 20130219
  */
-var Token = function(){
+var Token = function() {
     this.type   = null; // Any Token defined above
     this.line   = -1;   // The line number it appears on
     this.value  = '';   // The chunk of source code

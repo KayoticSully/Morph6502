@@ -26,7 +26,7 @@ var Parser = function() {
         // set defaults
         tokenStream = tokens;
         errors = new Array();
-        symbolTable = new Object();
+        symbolTable = new SymbolTable();
         
         log('------------');
         log('Parser Start', 'info');
@@ -301,7 +301,7 @@ var Parser = function() {
         
         if(parseType() && parseId()) {
             // see if new variable declaration is in the symbol table
-            if(idToken.value in symbolTable) {
+            if(! symbolTable.addIdentifier(idToken.value, typeToken.type)) {
                 var line = idToken.line;
                 var error = line + " : Redeclared Identifier " + idToken.value;
                 
@@ -314,10 +314,15 @@ var Parser = function() {
                 
                 // log error
                 log(error, 'error');
-                
-            } else {
-                symbolTable[idToken.value] = typeToken.type;
             }
+            
+            
+            //if(idToken.value in symbolTable) {
+                
+                
+            //} else {
+                //symbolTable[idToken.value] = typeToken.type;
+            //}
             
             return true;
         } else {
@@ -411,6 +416,18 @@ var Parser = function() {
         if(currentTokenType === type) {
             // log verbose data
             log("Got " + currentTokenType, 'info', true);
+            
+            // open or close scope if we see a brace
+            switch (currentTokenType) {
+                case T_BRACE_OPEN:
+                    symbolTable.openScope();
+                break;
+                
+                case T_BRACE_CLOSE:
+                    symbolTable.closeScope();
+                    //alert('close!');
+                break;
+            }
             
             // only consume the token if the type matches
             if(consume()) {

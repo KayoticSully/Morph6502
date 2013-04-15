@@ -62,13 +62,42 @@ function compile() {
     var symbolTable = parser.getSymbolTable();
     log('&nbsp;');
     log('Symbol Table', 'info');
-    log('------------');
-    for(var symbol in symbolTable) {
-        var entry = '<span class="success">' + symbol + '</span> | <span class="info">' + symbolTable[symbol] + '</span>';
-        log(entry);
-    }
+    
+    printSymbolTable(symbolTable);
+    //for(var symbol in symbolTable) {
+    //    var entry = '<span class="success">' + symbol + '</span> | <span class="info">' + symbolTable[symbol] + '</span>';
+    //    log(entry);
+    //}
     log('------------');
     
     displayOutput();
     return true;
+}
+
+
+function printSymbolTable(symbolTable) {
+    var prefix = '-';
+    
+    function printScope(scope) {
+        //alert('new scope!');
+        log('------------');
+        printSymbols(scope);
+        
+        prefix += '-';
+        for (var scopeIndex in scope.subScopes) {
+            var subScope = scope.subScopes[scopeIndex];
+            printScope(subScope);
+        }
+        prefix = prefix.substring(1);
+    }
+    
+    function printSymbols(scope) {
+        for(var symbolIndex in scope.symbols) {
+            var symbol = scope.symbols[symbolIndex];
+            var entry = prefix + ' <span class="success">' + symbol.id + '</span> | <span class="info">' + symbol.type + '</span>';
+            log(entry);
+        }
+    }
+    
+    printScope(symbolTable.root);
 }
