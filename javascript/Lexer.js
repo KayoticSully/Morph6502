@@ -67,7 +67,7 @@ var Lexer = function() {
         switch(tokenType) {
             case CT_NEW_LINE:
                 currentLine++;
-            case CT_SPACE:
+            case T_SPACE:
                 // if in a quote add into stream
                 if(inQuote) {
                     token.type = tokenType;

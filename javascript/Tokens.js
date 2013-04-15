@@ -22,10 +22,10 @@ const
     T_QUOTE           = 'T_QUOTE',          /** @constant {String} T_QUOTE */
     T_PLUS            = 'T_PLUS',           /** @constant {String} T_PLUS */
     T_MINUS           = 'T_MINUS',          /** @constant {String} T_MINUS */
+    T_SPACE          = 'T_SPACE',         /** @constant {String} T_SPACE */
     T_$               = 'T_$',              /** @constant {String} T_$ */
     // Control Tokens
     CT_NEW_LINE       = 'CT_NEW_LINE';      /** @constant {String} CT_NEW_LINE */
-    CT_SPACE          = 'CT_SPACE';         /** @constant {String} CT_SPACE */
 
 //-----------------------------------
 // All Tokens / Terminals RegEx
@@ -42,7 +42,7 @@ const
     R_CHARACTER       = /^[a-z]/,           /** @constant {Pattern} R_CHARACTER */
     R_BRACE_OPEN      = /^[{]/,             /** @constant {Pattern} R_BRACE_OPEN */
     R_BRACE_CLOSE     = /^[}]/,             /** @constant {Pattern} R_BRACE_CLOSE */
-    R_EPSILON         = /^[]/, // ???       /** @constant {Pattern} R_EPSILON */
+    R_EPSILON         = /^[]/,              /** @constant {Pattern} R_EPSILON */
     R_PAREN_OPEN      = /^[(]/,             /** @constant {Pattern} R_PAREN_OPEN */
     R_PAREN_CLOSE     = /^[)]/,             /** @constant {Pattern} R_PAREN_CLOSE */
     R_EQUALS          = /^[=]/,             /** @constant {Pattern} R_EQUALS */
@@ -50,9 +50,9 @@ const
     R_QUOTE           = /^["|']/,           /** @constant {Pattern} R_QUOTE */
     R_PLUS            = /^[+]/,             /** @constant {Pattern} R_PLUS */
     R_MINUS           = /^[-]/,             /** @constant {Pattern} R_MINUS */
+    R_SPACE           = /^\s/,              /** @constant {Pattern} R_SPACE */
     R_$               = /^[$]/,             /** @constant {Pattern} R_$ */
     R_NEW_LINE        = /^(\n)(\r)?/;       /** @constant {Pattern} R_NEW_LINE */
-    R_SPACE           = /^\s/;              /** @constant {Pattern} R_SPACE */
 
 /**
  * Order of importance to the Lexer
@@ -63,24 +63,23 @@ const
 var Tokens = {
     // Reserved words need to go first, otherwise each
     // character will get identified as T_CHARACTER tokens
-    T_INT           : { pattern: R_INT,         length: 3 },
-    T_STRING        : { pattern: R_STRING,      length: 6 },
-    T_PRINT         : { pattern: R_PRINT,       length: 5 },
+    T_INT           : { pattern: R_INT,         length: 3,      name: 'Integer'     },
+    T_STRING        : { pattern: R_STRING,      length: 6,      name: 'String'      },
+    T_PRINT         : { pattern: R_PRINT,       length: 5,      name: 'Print'       },
     // Now all other symbols
-    T_DIGIT         : { pattern: R_DIGIT,       length: 1 },
-    T_CHARACTER     : { pattern: R_CHARACTER,   length: 1 },
-    T_BRACE_OPEN    : { pattern: R_BRACE_OPEN,  length: 1 },
-    T_BRACE_CLOSE   : { pattern: R_BRACE_CLOSE, length: 1 },
- // T_EPSILON       : { pattern: R_EPSILON,     length 0 }, // Not sure if we need epsilon here...
-    T_PAREN_OPEN    : { pattern: R_PAREN_OPEN,  length: 1 },
-    T_PAREN_CLOSE   : { pattern: R_PAREN_CLOSE, length: 1 },
-    T_EQUALS        : { pattern: R_EQUALS,      length: 1 },
-    T_QUOTE         : { pattern: R_QUOTE,       length: 1 },
-    T_PLUS          : { pattern: R_PLUS,        length: 1 },
-    T_MINUS         : { pattern: R_MINUS,       length: 1 },
-    CT_NEW_LINE     : { pattern: R_NEW_LINE,    length: 1 },
-    CT_SPACE        : { pattern: R_SPACE,       length: 1 },
-    T_$             : { pattern: R_$,           length: 1 }
+    T_DIGIT         : { pattern: R_DIGIT,       length: 1,      name: 'Digit'       },
+    T_CHARACTER     : { pattern: R_CHARACTER,   length: 1,      name: 'Character'   },
+    T_BRACE_OPEN    : { pattern: R_BRACE_OPEN,  length: 1,      name: '{'           },
+    T_BRACE_CLOSE   : { pattern: R_BRACE_CLOSE, length: 1,      name: '}'           },
+    T_PAREN_OPEN    : { pattern: R_PAREN_OPEN,  length: 1,      name: '('           },
+    T_PAREN_CLOSE   : { pattern: R_PAREN_CLOSE, length: 1,      name: ')'           },
+    T_EQUALS        : { pattern: R_EQUALS,      length: 1,      name: '='           },
+    T_QUOTE         : { pattern: R_QUOTE,       length: 1,      name: '"'           },
+    T_PLUS          : { pattern: R_PLUS,        length: 1,      name: '+'           },
+    T_MINUS         : { pattern: R_MINUS,       length: 1,      name: '-'           },
+    CT_NEW_LINE     : { pattern: R_NEW_LINE,    length: 1,      name: 'New Line'    }, // must appear before T_SPACE
+    T_SPACE         : { pattern: R_SPACE,       length: 1,      name: 'space'       },
+    T_$             : { pattern: R_$,           length: 1,      name: '$'           },
 }
 
 /**

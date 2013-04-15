@@ -279,7 +279,7 @@ var Parser = function() {
                 }
             break;
             
-            case CT_SPACE:
+            case T_SPACE:
                 if(parseSpace()) {
                     return parseCharList();
                 } else {
@@ -381,7 +381,7 @@ var Parser = function() {
      * Checks for the Space production 
      */
     function parseSpace() {
-        if(checkToken(CT_SPACE)) {
+        if(checkToken(T_SPACE)) {
             return true;
         } else {
             return false;

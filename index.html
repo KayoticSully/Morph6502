@@ -121,7 +121,8 @@
                 <div id="settings">
                     <div class="option">
                         <input id="verbose" onchange="setVerbose(this);" type="checkbox"><label for="verbose">Verbose</label>
-                        <input id="continuous" onchange="setContinuous(this);" type="checkbox"><label for="continuous">Continuous</label>
+                        &nbsp;&nbsp;
+                        <input id="continuous" onchange="setContinuous(this);" type="checkbox"><label for="continuous">Continuous Compile</label>
                     </div>
                 </div>
             </div>
@@ -161,7 +162,7 @@
                             </div>
                             <ul class="expressions">
                                 <li>
-                                    ::== <b>P</b> <b>(</b> Expr <b>)</b>
+                                    ::== <b>print</b> <b>(</b> Expr <b>)</b>
                                 </li>
                                 <li>
                                     ::== Id <b>=</b> Expr
@@ -200,7 +201,7 @@
                                     ::== IntExpr
                                 </li>
                                 <li>
-                                    ::== CharExpr
+                                    ::== StringExpr
                                 </li>
                                 <li>
                                     ::== Id
@@ -223,10 +224,10 @@
                             </ul>
                         </li>
                         
-                        <!-- Character Expression -->
+                        <!-- String Expression -->
                         <li class="rule clearfix">
                             <div class="production">
-                                CharExpr
+                                StringExpr
                             </div>
                             <ul class="expressions">
                                 <li>
@@ -243,6 +244,9 @@
                             <ul class="expressions">
                                 <li>
                                     ::== Char CharList
+                                </li>
+                                <li>
+                                    ::== Space CharList
                                 </li>
                                 <li>
                                     ::== <b>&#949;</b>
@@ -269,7 +273,7 @@
                             </div>
                             <ul class="expressions">
                                 <li>
-                                    ::== <b>int</b> | <b>char</b>
+                                    ::== <b>int</b> | <b>string</b>
                                 </li>
                             </ul>
                         </li>
@@ -294,6 +298,18 @@
                             <ul class="expressions">
                                 <li>
                                     ::== <b>a</b> | <b>b</b> | <b>c</b> ... <b>z</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Space -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                Space
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== the <b>space</b> character
                                 </li>
                             </ul>
                         </li>
