@@ -106,6 +106,7 @@ function initInfoVis() {
         levelDistance: 50,
         levelsToShow: 4,
 	orientation: 'top',
+        offsetY : 100,
         //enable panning
         Navigation: {
           enable:true,

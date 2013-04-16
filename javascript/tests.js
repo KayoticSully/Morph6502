@@ -24,5 +24,8 @@ const Tests = {
     testFixedError1 : "a",
     testFixedError2 : "int",
     testScope : "{\n    int a\n    string b\n    {\n        b = \"b\"\n        int c\n        {\n            a = 4\n            c = 2\n            print(a)\n            {\n                print(\"more scope\")\n            }\n            print(c)\n        }\n        print(c)\n    }\n    a = 8\n}\n$",
-    
+    testScopeRedeclareError : "{\n    int a\n    {\n        int a\n        {\n            int b\n        }\n        string a\n    }\n}\n$",
+    testUndeclaredIdentifier : "{\n    int a\n    a = 5\n    print(b)\n}\n$",
+    testTypeMisMatch: "{\n    int a \n    a = 5\n    \n    string b\n    b = \"awesome\"\n    \n    a = b\n}\n$",
+    testDeclareBug: "{\n    int a\n    {\n        a = 5\n        string a\n    }\n}\n$",
 }

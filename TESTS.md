@@ -212,3 +212,70 @@ $
 ####Output
 *   Warning:
     *   Warning: unused symbol b on line 3
+
+```
+{
+    int a
+    {
+        int a
+        {
+            int b
+        }
+        string a
+    }
+}
+$
+```
+####Output
+*   Error:
+    *   8 : Redeclared Identifier a
+
+Other
+-----
+```
+{
+    int a
+    a = 5
+    print(b)
+}
+$
+```
+####Output
+*   Error:
+    *   4 : Undeclared identifier b
+
+```
+{
+    int a 
+    a = 5
+    
+    string b
+    b = "awesome"
+    
+    a = b
+}
+$
+```
+####Output
+*   Warning:
+    *   Warning: unused symbol a on line 2
+*   Error:
+    *   8 : Type mis-match. Expected Integer found String
+
+```
+{
+    int a
+    {
+        a = 5
+        string a
+    }
+}
+$
+```
+####Output
+*   Warning:
+    *   Warning: unused symbol a on line 2
+    *   Warning: uninitialized symbol a on line 5
+    *   Warning: unused symbol a on line 5
+*   Error:
+    *   4 : Type mis-match. Expected String found Integer

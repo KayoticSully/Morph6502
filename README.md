@@ -2,7 +2,7 @@ M o r p h 6 5 0 2
 =================
 This is a project for my compilers class.  The main goal is to be able to compile a rather simplistic language into 6502 hex op-codes.  The main parts of the project are a Lexer, a Parser and a Code Generator.
 
-Submodules
+Submodules (Part of Set Up)
 ----------
 This project uses Impress.js for its interface.  I have linked my fork of Impress.js as a submodule.  You need to run `submodule init` and `submodule update` to get this dependency installed.
 
@@ -11,6 +11,38 @@ For more information on Git submodules check out [this article](http://git-scm.c
 Documentation
 -------------
 I am using Google's JSDocs to generate documentation.  These files can be found in the docs folder.
+
+Notes (Project 2)
+=================
+Known Bugs
+----------
+*   Variable declarations parse without a space between the type and identifier.  For example `inta` parses just the same as `int a`.
+*   Variable declarations will override type of identifiers used before the declaration in the same scope.  For example, if __int a__ is defined in an outter scope, and a child scope assigns a to 5 but then later defines its own string a, the assignment of 5 to a will fail type checking even though it technically is correct.  I'm not sure if I described this bug properly but I included a test called "Declare Bug" that shows the problem.  I do not know how to fix this and just found the issue while writing my test cases.
+
+CST
+---
+I do not have a CST.  Morph6502 directly builds the AST from the Token Stream during the parse phase.
+
+AST
+---
+The AST for any successfully compiled program can be viewed by clicking on the "Display AST" link at the end of the output log.  Just noting that incase the log is too long and you have to scroll down.  Its dragable, and expandable.  Pink nodes can be clicked on to expand down.  The darker the node the more levels it has underneath it.  I tried my best to get as many levels to show at once, but wide graphs will only expand down 1 or 2 levels.
+
+Symbol Table
+------------
+The symbol table will print out towards the end of the log.  New scopes have horizontal lines on top and bottom.  The number of dashes at the front is the scope's depth.  I think it's fairly obvious, but can't hurt to clarify it.
+
+A symbol's record has the following form
+```
+id | Type | Initialised Boolean | Used Boolean
+```
+
+Continuous Compile
+-------------------
+This is just something I was messing around with.  It works fairly well but the AST won't be useful since its getting re-drawn so quickly.
+
+JSDocs
+------
+These are not updated to the current project.  I need to reformat some comments before this will update properly.
 
 Notes (Project 1)
 =================
