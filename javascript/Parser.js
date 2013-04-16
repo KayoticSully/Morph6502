@@ -165,7 +165,14 @@ var Parser = function() {
      */
     function subStatement4() {
         AST.addNode('block', 'branch', tokenStream[0]);
+        // we expect a new scope to begin
+        symbolTable.openScope();
+        // link block to scope
+        AST.cur.scope = symbolTable.workingScope;
+        
         if(checkToken(T_BRACE_OPEN) && parseStatementList() && checkToken(T_BRACE_CLOSE)) {
+            // close this scope
+            symbolTable.closeScope();
             AST.endChildren();
             return true;
         } else  {
@@ -258,7 +265,7 @@ var Parser = function() {
             
             // this is the last statement in an IntExpr
             AST.addNode(digit.value, 'leaf', digit);
-            AST.endChildren();
+            //AST.endChildren();
             
             return true;
         } else {
@@ -393,14 +400,10 @@ var Parser = function() {
      * Checks for the Id production | Char
      */
     function parseId(action) {
-        // if newId is not set to true, it means
-        // an identifier is being used and should
-        // be in the symbol table
-        
         if (action !== 'declared') {
             var id = tokenValue();
             
-            if(! symbolTable.workingScope.hasId(id)) {
+            if(! symbolTable.workingScope.hasId(id, true)) {
                 var msg = "Undeclared identifier " + id;
                 logError(tokenLine(), msg)
                 return false;
@@ -505,17 +508,17 @@ var Parser = function() {
             // log verbose data
             log("Got " + currentTokenType, 'info', true);
             
-            // open or close scope if we see a brace
-            switch (currentTokenType) {
-                case T_BRACE_OPEN:
-                    symbolTable.openScope();
-                break;
-                
-                case T_BRACE_CLOSE:
-                    symbolTable.closeScope();
-                    //alert('close!');
-                break;
-            }
+            //// open or close scope if we see a brace
+            //switch (currentTokenType) {
+            //    case T_BRACE_OPEN:
+            //        symbolTable.openScope();
+            //    break;
+            //    
+            //    case T_BRACE_CLOSE:
+            //        symbolTable.closeScope();
+            //        //alert('close!');
+            //    break;
+            //}
             
             // only consume the token if the type matches
             if(consume()) {
@@ -629,7 +632,7 @@ var Parser = function() {
     function expectedError(expected) {
         // build error info
         var line = tokenLine();
-        var error = "Expected " + expected + ", found " + tokenType();
+        var error = "Expected " + Tokens[expected].name + ", found " + Tokens[tokenType()].name;
         
         logError(line, error);
     }

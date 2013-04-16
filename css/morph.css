@@ -335,7 +335,7 @@ button.hidden {
 
 #inputControls {
     float: left;
-    width: 52%;
+    width: 45%;
     position: relative;
 }
 
@@ -353,7 +353,7 @@ button.hidden {
 }
 
 #actions {
-    width:47%;
+    width:40%;
     float: left;
     font-size: 13px;
     padding:8px 0px 8px 52px;
@@ -403,7 +403,7 @@ button.hidden {
     float: left;
     margin:0% 2%;
     font-size: 17px;
-    width: 44%;
+    width: 51%;
     text-align: left;
     position: relative;
 }

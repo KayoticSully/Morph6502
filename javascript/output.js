@@ -1,7 +1,7 @@
 /**
  * @file Helper functions to display output to the web interface
  * @author Ryan Sullivan
- * @version 20130226
+ * @version 20130416
  */
 
 /**
@@ -64,4 +64,61 @@ function highlightErrorLines(tokenErrors) {
     }
     
     displayOutput();
+}
+
+function showAST(ast) {
+    log("Reticulating Splines");
+    // get JSON to load into view
+    var json = ast.toJSON();
+    // setup SpaceTree
+    SpaceTree.loadJSON(json);
+    SpaceTree.compute();
+    SpaceTree.geom.translate(new $jit.Complex(-200, 0), "current");
+    // LOAD!
+    SpaceTree.onClick(SpaceTree.root);
+    log('<a href="#/show-ast">Display AST</a>');
+}
+
+
+function printSymbolTable(symbolTable) {
+    var prefix = '-';
+    
+    function printScope(scope) {
+        //alert('new scope!');
+        printSymbols(scope);
+        
+        log('------------------------------------');
+        
+        prefix += '-';
+        for (var scopeIndex in scope.subScopes) {
+            var subScope = scope.subScopes[scopeIndex];
+            printScope(subScope);
+        }
+        prefix = prefix.substring(1);
+    }
+    
+    function printSymbols(scope) {
+        for(var symbolIndex in scope.symbols) {
+            var symbol = scope.symbols[symbolIndex];
+            var entry = prefix +
+                ' <span class="success">' +
+                    symbol.id +
+                '</span>' +
+                    ' | ' +
+                '<span class="info">' +
+                    symbol.type +
+                '</span>' +
+                    ' | ' +
+                '<span class="info">' +
+                    symbol.initialized +
+                '</span>' +
+                    ' | ' +
+                '<span class="info">' +
+                    symbol.used +
+                '</span>';
+            log(entry);
+        }
+    }
+    
+    printScope(symbolTable.root);
 }

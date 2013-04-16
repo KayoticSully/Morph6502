@@ -27,7 +27,7 @@ SymbolTable.prototype.addIdentifier = function(id, type) {
     var added = this.workingScope.addSymbol(symbol);
     
     if (added) {
-        var message = 'Identifier: ' + symbol.id + " | " + symbol.type + ' on line ' + symbol.line;
+        var message = 'Identifier: ' + symbol.id + " | " + Tokens[symbol.type].name + ' on line ' + symbol.line;
         log(message, 'info');
     }
     

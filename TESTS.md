@@ -34,9 +34,9 @@ Some Statements
 ---------------
 ```
 {
-    P("start of example")
+    print("start of example")
     int a
-    char b
+    string b
     
     a = 1 + 4 + 5
     a = 1 + a
@@ -88,7 +88,7 @@ Parse Errors
 ```
 {
     int 1
-    char 42
+    string 42
 }
 $
 ```
@@ -99,7 +99,7 @@ $
 
 ```
 {
-    char b
+    string b
     b = "this 1s a t35t"
 }
 $
@@ -111,9 +111,9 @@ $
 Unfortunately this one requires the first two errors to be fixed before the third error will show.
 ```
 {
-    P("start 0f example")
+    print("start 0f example")
     int a
-    char b
+    string b
     
     a = a + 4 + 5
     a = 1 - a
@@ -135,7 +135,7 @@ Redeclaration error!
     a = 1
     a = 5 + a
     
-    char a
+    string a
 }
 $
 ```
@@ -148,7 +148,7 @@ Warnings
 --------
 ```
 {
-    P("this example does not contain a program end symbol")
+    print("this example does not contain a program end symbol")
 }
 ```
 ####Output
@@ -157,7 +157,7 @@ Warnings
 
 ```
 {
-    P("this example has extra code after the end of program symbol")
+    print("this example has extra code after the end of program symbol")
 }
 $
 P("this is some extra code")
@@ -174,7 +174,7 @@ a
 ```
 ####Output
 *   Error:
-    *   Last Line : Expected T_EQUALS, found false
+    *   1 : Undeclared identifier a
 
 and
 ```
@@ -182,4 +182,33 @@ int
 ```
 ####Output
 *   Error:
-    *   Last Line : Expected T_CHARACTER, found false
+    *   1 : Expected T_CHARACTER, found false
+
+    
+Scope Test Cases
+----------------
+```
+{
+    int a
+    string b
+    {
+        b = "b"
+        int c
+        {
+            a = 4
+            c = 2
+            print(a)
+            {
+                print("more scope")
+            }
+            print(c)
+        }
+        print(c)
+    }
+    a = 8
+}
+$
+```
+####Output
+*   Warning:
+    *   Warning: unused symbol b on line 3

@@ -74,11 +74,11 @@ var Tokens = {
     T_PAREN_OPEN    : { pattern: R_PAREN_OPEN,  length: 1,      name: '('           },
     T_PAREN_CLOSE   : { pattern: R_PAREN_CLOSE, length: 1,      name: ')'           },
     T_EQUALS        : { pattern: R_EQUALS,      length: 1,      name: '='           },
-    T_QUOTE         : { pattern: R_QUOTE,       length: 1,      name: '"'           },
+    T_QUOTE         : { pattern: R_QUOTE,       length: 1,      name: 'Quote'       },
     T_PLUS          : { pattern: R_PLUS,        length: 1,      name: '+'           },
     T_MINUS         : { pattern: R_MINUS,       length: 1,      name: '-'           },
     CT_NEW_LINE     : { pattern: R_NEW_LINE,    length: 1,      name: 'New Line'    }, // must appear before T_SPACE
-    T_SPACE         : { pattern: R_SPACE,       length: 1,      name: 'space'       },
+    T_SPACE         : { pattern: R_SPACE,       length: 1,      name: '[Space]'     },
     T_$             : { pattern: R_$,           length: 1,      name: '$'           },
 }
 
