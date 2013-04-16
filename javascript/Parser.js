@@ -16,6 +16,8 @@ var Parser = function() {
     var lastToken;
     var errors;
     var symbolTable;
+    var AST;
+    var stringBuffer;
     
     /**
      * Traverses the source code input to verify and build a token stream.
@@ -27,6 +29,8 @@ var Parser = function() {
         tokenStream = tokens;
         errors = new Array();
         symbolTable = new SymbolTable();
+        AST = new Tree();
+        stringBuffer = '';
         
         log('------------');
         log('Parser Start', 'info');
@@ -54,6 +58,14 @@ var Parser = function() {
      */
     this.getSymbolTable = function() {
         return symbolTable;
+    }
+    
+    /**
+     * Returns the AST Tree
+     * @returns {Object} AST Tree
+     */
+    this.getAST = function() {
+        return AST;
     }
     
     //-----------------------
@@ -119,7 +131,9 @@ var Parser = function() {
      * Checks for the Statement production P(Expr)
      */
     function subStatement1() {
+        AST.addNode('print', 'branch');
         if(checkToken(T_PRINT) && checkToken(T_PAREN_OPEN) && parseExpr() && checkToken(T_PAREN_CLOSE)) {
+            AST.endChildren();
             return true;
         } else {
             return false;
@@ -130,7 +144,9 @@ var Parser = function() {
      * Checks for the Statement production Id = Expr
      */
     function subStatement2() {
+        AST.addNode(Tokens[T_EQUALS].name, 'branch');
         if(parseId('initialized') && checkToken(T_EQUALS) && parseExpr()) {
+            AST.endChildren();
             return true;
         } else {
             return false;
@@ -148,7 +164,9 @@ var Parser = function() {
      * Checks for the Statement production {StatementList}
      */
     function subStatement4() {
+        AST.addNode('block', 'branch');
         if(checkToken(T_BRACE_OPEN) && parseStatementList() && checkToken(T_BRACE_CLOSE)) {
+            AST.endChildren();
             return true;
         } else  {
             return false;
@@ -212,6 +230,8 @@ var Parser = function() {
      * Checks for the IntExpr production | digit op Expr || digit
      */
     function parseIntExpr() {
+        
+        var digit = tokenStream[0];
         // this has to start with a digit
         if(parseDigit()) {
             // see if there is an operation after
@@ -219,9 +239,26 @@ var Parser = function() {
             switch(tokenType()) {
                 case T_MINUS:
                 case T_PLUS:
-                    return subIntExpr();
+                    
+                    // add the operation and first leaf node here
+                    // it just needs to work this way due to the order
+                    // of function calls.
+                    AST.addNode(tokenValue(), 'branch');
+                    AST.addNode(digit.value, 'leaf');
+                    
+                    // we can assume that subIntExpr will parse properly
+                    // since the AST will not be used if it does not.
+                    // We just need to delay the return untill after
+                    // we can close off the AST branch node
+                    var subIntResult = subIntExpr();
+                    AST.endChildren();
+                    return subIntResult;
                 break;
             }
+            
+            // this is the last statement in an IntExpr
+            AST.addNode(digit.value, 'leaf');
+            AST.endChildren();
             
             return true;
         } else {
@@ -243,8 +280,13 @@ var Parser = function() {
     /**
      * Checks for the CharExpr production | "CharList"
      */
-    function parseStringExpr() {  
+    function parseStringExpr() {
+        // make sure stringBuffer is empty
+        stringBuffer = '';
         if(parseQuote() && parseCharList() && parseQuote()) {
+            // wait until after parseCharList has executed so
+            // the string characters can buffer up.
+            AST.addNode('"' + stringBuffer + '"', 'leaf');
             return true;
         } else {
             return false;
@@ -270,9 +312,14 @@ var Parser = function() {
         // if not return true, since this production can go to epsilon.
         
         // This is ugly, probably bad practice, but it works.
+        
+        // true is passed into parseCharacter and parseSpace
+        // to tell it to add the character
+        // to the stringBuffer rather than
+        // directly onto the AST
         switch(tokenType()) {
             case T_CHARACTER:
-                if(parseCharacter()) {
+                if(parseCharacter(true)) {
                     return parseCharList();
                 } else {
                     return false;
@@ -280,7 +327,7 @@ var Parser = function() {
             break;
             
             case T_SPACE:
-                if(parseSpace()) {
+                if(parseSpace(true)) {
                     return parseCharList();
                 } else {
                     return false;
@@ -299,6 +346,8 @@ var Parser = function() {
         var typeToken = tokenStream[0];
         var idToken   = tokenStream[1];
         
+        AST.addNode('VarDecl', 'branch');
+        
         if(parseType() && parseId('declared')) {
             // see if new variable declaration is in the symbol table
             if(! symbolTable.addIdentifier(idToken, typeToken)) {
@@ -315,6 +364,10 @@ var Parser = function() {
                 // log error
                 log(error, 'error');
             }
+            //AST.addNode(Tokens[typeToken.type].name, 'leaf');
+            //AST.addNode(idToken.value, 'leaf');
+            
+            AST.endChildren();
             
             return true;
         } else {
@@ -326,6 +379,8 @@ var Parser = function() {
      * Checks for the Type production | int || char
      */
     function parseType() {
+        AST.addNode(tokenStream[0].value, 'leaf');
+        
         if(multiCheckToken([T_INT, T_STRING])) {
             return true;
         } else {
@@ -369,8 +424,15 @@ var Parser = function() {
     /**
      * Checks for the Character production | a || b || c ... z
      */
-    function parseCharacter() {
+    function parseCharacter(buffer) {
+        if (buffer) {
+            stringBuffer += tokenValue();
+        } else {
+            AST.addNode(tokenValue(), 'leaf');
+        }
+        
         if(checkToken(T_CHARACTER)) {
+            
             return true;
         } else {
             return false;
@@ -380,7 +442,13 @@ var Parser = function() {
     /**
      * Checks for the Space production 
      */
-    function parseSpace() {
+    function parseSpace(buffer) {
+        if (buffer) {
+            stringBuffer += tokenValue();
+        } else {
+            AST.addNode(tokenValue(), 'leaf');
+        }
+        
         if(checkToken(T_SPACE)) {
             return true;
         } else {
@@ -392,6 +460,7 @@ var Parser = function() {
      * Checks for the Digit production | 1 || 2 || 3 ... 9 || 0
      */
     function parseDigit() {
+        
         if(checkToken(T_DIGIT)) {
             return true;
         } else {
