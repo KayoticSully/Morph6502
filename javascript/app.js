@@ -8,6 +8,7 @@
 var api,
     lexer,
     parser,
+    analysis,
     logLevel,
     continuous;
 
@@ -36,8 +37,9 @@ function init() {
     $(".lined").linedtextarea();
     
     // Load Lexer
-    lexer = new Lexer();
-    parser = new Parser();
+    lexer       = new Lexer();
+    parser      = new Parser();
+    analysis    = new SemanticAnalysis();
 }
 
 /**

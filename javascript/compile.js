@@ -51,6 +51,13 @@ function compile() {
         return false; // stop execution here
     }
     
+    var symbolTable = parser.getSymbolTable();
+    var ast         = parser.getAST();
+    
+    //----------------------
+    // Semantic Analysis
+    //----------------------
+    analysis.analyze(symbolTable, ast);
     
     //----------------------
     // Final Output
@@ -65,9 +72,7 @@ function compile() {
     log('Symbol Table', 'info');
     
     printSymbolTable(symbolTable);
-    
     displayOutput();
-    
     showAST(parser.getAST());
     
     return true;

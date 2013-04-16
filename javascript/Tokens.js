@@ -93,4 +93,12 @@ var Token = function() {
     this.type   = null; // Any Token defined above
     this.line   = -1;   // The line number it appears on
     this.value  = '';   // The chunk of source code
+    
+    Object.defineProperty(this, 'name', {
+        writeable       : false,
+        enumerable      : false,
+        get             : function() {
+            return Tokens[this.type].name;
+        }
+    });
 }

@@ -131,7 +131,7 @@ var Parser = function() {
      * Checks for the Statement production P(Expr)
      */
     function subStatement1() {
-        AST.addNode('print', 'branch');
+        AST.addNode('print', 'branch', tokenStream[0]);
         if(checkToken(T_PRINT) && checkToken(T_PAREN_OPEN) && parseExpr() && checkToken(T_PAREN_CLOSE)) {
             AST.endChildren();
             return true;
@@ -144,7 +144,7 @@ var Parser = function() {
      * Checks for the Statement production Id = Expr
      */
     function subStatement2() {
-        AST.addNode(Tokens[T_EQUALS].name, 'branch');
+        AST.addNode(Tokens[T_EQUALS].name, 'branch', lookAhead(1));
         if(parseId('initialized') && checkToken(T_EQUALS) && parseExpr()) {
             AST.endChildren();
             return true;
@@ -164,7 +164,7 @@ var Parser = function() {
      * Checks for the Statement production {StatementList}
      */
     function subStatement4() {
-        AST.addNode('block', 'branch');
+        AST.addNode('block', 'branch', tokenStream[0]);
         if(checkToken(T_BRACE_OPEN) && parseStatementList() && checkToken(T_BRACE_CLOSE)) {
             AST.endChildren();
             return true;
@@ -243,8 +243,8 @@ var Parser = function() {
                     // add the operation and first leaf node here
                     // it just needs to work this way due to the order
                     // of function calls.
-                    AST.addNode(tokenValue(), 'branch');
-                    AST.addNode(digit.value, 'leaf');
+                    AST.addNode(tokenValue(), 'branch', tokenStream[0]);
+                    AST.addNode(digit.value, 'leaf', digit);
                     
                     // we can assume that subIntExpr will parse properly
                     // since the AST will not be used if it does not.
@@ -257,7 +257,7 @@ var Parser = function() {
             }
             
             // this is the last statement in an IntExpr
-            AST.addNode(digit.value, 'leaf');
+            AST.addNode(digit.value, 'leaf', digit);
             AST.endChildren();
             
             return true;
@@ -278,15 +278,16 @@ var Parser = function() {
     }
     
     /**
-     * Checks for the CharExpr production | "CharList"
+     * Checks for the StringExpr production | "CharList"
      */
     function parseStringExpr() {
         // make sure stringBuffer is empty
         stringBuffer = '';
+        var stringStart = tokenStream[0];
         if(parseQuote() && parseCharList() && parseQuote()) {
             // wait until after parseCharList has executed so
             // the string characters can buffer up.
-            AST.addNode('"' + stringBuffer + '"', 'leaf');
+            AST.addNode('"' + stringBuffer + '"', 'leaf', stringStart);
             return true;
         } else {
             return false;
@@ -346,7 +347,9 @@ var Parser = function() {
         var typeToken = tokenStream[0];
         var idToken   = tokenStream[1];
         
-        AST.addNode('VarDecl', 'branch');
+        // token field is null here since this does not
+        // really have a token associated with it
+        AST.addNode('VarDecl', 'branch', null);
         
         if(parseType() && parseId('declared')) {
             // see if new variable declaration is in the symbol table
@@ -364,8 +367,6 @@ var Parser = function() {
                 // log error
                 log(error, 'error');
             }
-            //AST.addNode(Tokens[typeToken.type].name, 'leaf');
-            //AST.addNode(idToken.value, 'leaf');
             
             AST.endChildren();
             
@@ -379,7 +380,7 @@ var Parser = function() {
      * Checks for the Type production | int || char
      */
     function parseType() {
-        AST.addNode(tokenStream[0].value, 'leaf');
+        AST.addNode(tokenStream[0].value, 'leaf', tokenStream[0]);
         
         if(multiCheckToken([T_INT, T_STRING])) {
             return true;
@@ -428,7 +429,7 @@ var Parser = function() {
         if (buffer) {
             stringBuffer += tokenValue();
         } else {
-            AST.addNode(tokenValue(), 'leaf');
+            AST.addNode(tokenValue(), 'leaf', tokenStream[0]);
         }
         
         if(checkToken(T_CHARACTER)) {
@@ -446,7 +447,7 @@ var Parser = function() {
         if (buffer) {
             stringBuffer += tokenValue();
         } else {
-            AST.addNode(tokenValue(), 'leaf');
+            AST.addNode(tokenValue(), 'leaf', tokenStream[0]);
         }
         
         if(checkToken(T_SPACE)) {

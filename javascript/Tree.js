@@ -8,7 +8,7 @@
  */
 
 /**
- * Houses a tree
+ * Houses a tree used for the AST
  * 
  * @class
  */
@@ -25,8 +25,9 @@ var Tree = function() {
  * 
  * @class
  */
-var Node = function(name) {
+var Node = function(name, token) {
     this.name = name;
+    this.token = token;
     this.children = [];
     this.parent = {};
 }
@@ -37,9 +38,9 @@ var Node = function(name) {
 * @param {string} name of node
 * @param {kind} branch or leaf
 */
-Tree.prototype.addNode = function(name, kind) {
+Tree.prototype.addNode = function(name, kind, token) {
     // Construct the node object.
-    var node = new Node(name);
+    var node = new Node(name, token);
 
     // Check to see if it needs to be the root node.
     if ( (this.root == null) || (!this.root) )
