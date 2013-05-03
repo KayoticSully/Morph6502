@@ -98,7 +98,7 @@ var Parser = function() {
         // run the proper sub-parse for the current token type
         
         // this may be the first set.... need to compute that.
-        var types = new Array(T_PRINT, T_CHARACTER, T_INT, T_STRING, T_BRACE_OPEN);
+        var types = new Array(T_PRINT, T_CHARACTER, T_INT, T_STRING, T_BRACE_OPEN, T_BOOLEAN, T_WHILE, T_IF);
         
         if(types.indexOf(type) >= 0 ) {
             switch(type) {
@@ -112,11 +112,20 @@ var Parser = function() {
                 
                 case T_INT:
                 case T_STRING:
+                case T_BOOLEAN:
                     return subStatement3();
                 break;
                 
                 case T_BRACE_OPEN:
                     return subStatement4();
+                break;
+                
+                case T_WHILE:
+                    return subStatement5();
+                break;
+                
+                case T_IF:
+                    return subStatement6();
                 break;
             }
         } else {
@@ -181,17 +190,35 @@ var Parser = function() {
     }
     
     /**
+     * Checks for the Statement production WhileStatement
+     */
+    function subStatement5() {
+        return parseWhileStatement();
+    }
+    
+    /**
+     * Checks for the Statement production IfStatement
+     */
+    function subStatement6() {
+        return parseIfStatement();
+    }
+    
+    /**
      * Checks for the StatementList production | Statement StatementList || Epsilon
      */
     function parseStatementList() {
         // See if a statement is possible.  If it is try to parse it,
         // if not return true, since this production can go to epsilon.
         switch(tokenType()) {
+            // expect a symbol in the Statement's First Set to continue
             case T_PRINT:
             case T_CHARACTER:
             case T_INT:
             case T_STRING:
             case T_BRACE_OPEN:
+            case T_WHILE:
+            case T_IF:
+            case T_BOOLEAN:
                 // It actually does not matter what this returns.
                 // If there is an error, it will be logged and we want to move
                 // onto the next line anyway
@@ -226,11 +253,80 @@ var Parser = function() {
                 return parseId('used');
             break;
             
+            case T_PAREN_OPEN:
+            case T_TRUE:
+            case T_FALSE:
+                return parseBooleanExpr();
+            break;
+            
             default:
                 return false;
         }
         
         return false;
+    }
+    
+    /**
+     * Checks for the WhileStatement production
+     */
+    function parseWhileStatement() {
+        
+        AST.addNode(Tokens[T_WHILE].name, 'branch', tokenStream[0]);
+        
+        //     while                BooleanExpr       { StatementList }
+        if(checkToken(T_WHILE) && parseBooleanExpr() && subStatement4()) {
+            AST.endChildren();
+            return true;
+        } else  {
+            return false;
+        }
+    }
+    
+    /**
+     * Checks for the IfStatement production
+     */
+    function parseIfStatement() {
+        
+        AST.addNode(Tokens[T_IF].name, 'branch', tokenStream[0]);
+        
+        //     if                BooleanExpr       { StatementList }
+        if(checkToken(T_IF) && parseBooleanExpr() && subStatement4()) {
+            AST.endChildren();
+            return true;
+        } else  {
+            return false;
+        }
+    }
+    
+    /**
+     * Checks for the BooleanExpr production
+     */
+    function parseBooleanExpr() {
+        
+        if (tokenType() == T_PAREN_OPEN) {
+            return subBooleanExpr1();
+        } else {
+            AST.addNode(tokenValue(), 'leaf', tokenStream[0]);
+            return parseBoolVal();
+        }
+    }
+    
+    function subBooleanExpr1() {
+        AST.addNode(Tokens[T_EQUALITY].name, 'branch', lookAhead(2));
+        if(checkToken(T_PAREN_OPEN) && parseExpr() && checkToken(T_EQUALITY) && parseExpr() && checkToken(T_PAREN_CLOSE)) {
+            AST.endChildren();
+            return true;
+        } else  {
+            return false;
+        }
+    }
+    
+    function parseBoolVal() {
+        if(multiCheckToken([T_TRUE, T_FALSE])) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
     /**
@@ -389,7 +485,7 @@ var Parser = function() {
     function parseType() {
         AST.addNode(tokenStream[0].value, 'leaf', tokenStream[0]);
         
-        if(multiCheckToken([T_INT, T_STRING])) {
+        if(multiCheckToken([T_INT, T_STRING, T_BOOLEAN])) {
             return true;
         } else {
             return false;
@@ -630,6 +726,7 @@ var Parser = function() {
      * @param {String} expected The expected token type
      */
     function expectedError(expected) {
+        console.log(expected + " : " + tokenType());
         // build error info
         var line = tokenLine();
         var error = "Expected " + Tokens[expected].name + ", found " + Tokens[tokenType()].name;

@@ -17,12 +17,18 @@ const
     T_EPSILON         = 'T_EPSILON',        /** @constant {String} T_EPSILON */
     T_PAREN_OPEN      = 'T_PAREN_OPEN',     /** @constant {String} T_PAREN_OPEN */
     T_PAREN_CLOSE     = 'T_PAREN_CLOSE',    /** @constant {String} T_PAREN_CLOSE */
+    T_EQUALITY        = 'T_EQUALITY',       /** @constant {String} T_EQUALITY */
     T_EQUALS          = 'T_EQUALS',         /** @constant {String} T_EQUALS */
     T_PRINT           = 'T_PRINT',          /** @constant {String} T_PRINT */
+    T_WHILE           = 'T_WHILE',          /** @constant {String} T_WHILE */
+    T_IF              = 'T_IF',             /** @constant {String} T_IF */
+    T_BOOLEAN         = 'T_BOOLEAN',        /** @constant {String} T_BOOLEAN */
+    T_TRUE            = 'T_TRUE',           /** @constant {String} T_TRUE */
+    T_FALSE           = 'T_FALSE',          /** @constant {String} T_FALSE */
     T_QUOTE           = 'T_QUOTE',          /** @constant {String} T_QUOTE */
     T_PLUS            = 'T_PLUS',           /** @constant {String} T_PLUS */
     T_MINUS           = 'T_MINUS',          /** @constant {String} T_MINUS */
-    T_SPACE          = 'T_SPACE',         /** @constant {String} T_SPACE */
+    T_SPACE           = 'T_SPACE',          /** @constant {String} T_SPACE */
     T_$               = 'T_$',              /** @constant {String} T_$ */
     // Control Tokens
     CT_NEW_LINE       = 'CT_NEW_LINE';      /** @constant {String} CT_NEW_LINE */
@@ -45,8 +51,14 @@ const
     R_EPSILON         = /^[]/,              /** @constant {Pattern} R_EPSILON */
     R_PAREN_OPEN      = /^[(]/,             /** @constant {Pattern} R_PAREN_OPEN */
     R_PAREN_CLOSE     = /^[)]/,             /** @constant {Pattern} R_PAREN_CLOSE */
+    R_EQUALITY        = /^==/,              /** @constant {Pattern} R_EQUALITY */
     R_EQUALS          = /^[=]/,             /** @constant {Pattern} R_EQUALS */
     R_PRINT           = /^print/,           /** @constant {Pattern} R_PRINT */
+    R_WHILE           = /^while/,           /** @constant {Pattern} R_PRINT */
+    R_IF              = /^if/,              /** @constant {Pattern} R_IF */
+    R_BOOLEAN         = /^boolean/,         /** @constant {Pattern} R_BOOLEAN */
+    R_TRUE            = /^true/,            /** @constant {Pattern} R_TRUE */
+    R_FALSE           = /^false/,           /** @constant {Pattern} R_FALSE */
     R_QUOTE           = /^["|']/,           /** @constant {Pattern} R_QUOTE */
     R_PLUS            = /^[+]/,             /** @constant {Pattern} R_PLUS */
     R_MINUS           = /^[-]/,             /** @constant {Pattern} R_MINUS */
@@ -66,6 +78,11 @@ var Tokens = {
     T_INT           : { pattern: R_INT,         length: 3,      name: 'Integer'     },
     T_STRING        : { pattern: R_STRING,      length: 6,      name: 'String'      },
     T_PRINT         : { pattern: R_PRINT,       length: 5,      name: 'Print'       },
+    T_WHILE         : { pattern: R_WHILE,       length: 5,      name: 'While'       },
+    T_IF            : { pattern: R_IF,          length: 2,      name: 'If'          },
+    T_BOOLEAN       : { pattern: R_BOOLEAN,     length: 7,      name: 'Boolean'     },
+    T_TRUE          : { pattern: R_TRUE,        length: 4,      name: 'True'        },
+    T_FALSE         : { pattern: R_FALSE,       length: 5,      name: 'False'       },
     // Now all other symbols
     T_DIGIT         : { pattern: R_DIGIT,       length: 1,      name: 'Digit'       },
     T_CHARACTER     : { pattern: R_CHARACTER,   length: 1,      name: 'Character'   },
@@ -73,6 +90,7 @@ var Tokens = {
     T_BRACE_CLOSE   : { pattern: R_BRACE_CLOSE, length: 1,      name: '}'           },
     T_PAREN_OPEN    : { pattern: R_PAREN_OPEN,  length: 1,      name: '('           },
     T_PAREN_CLOSE   : { pattern: R_PAREN_CLOSE, length: 1,      name: ')'           },
+    T_EQUALITY      : { pattern: R_EQUALITY,    length: 2,      name: '=='          },
     T_EQUALS        : { pattern: R_EQUALS,      length: 1,      name: '='           },
     T_QUOTE         : { pattern: R_QUOTE,       length: 1,      name: 'Quote'       },
     T_PLUS          : { pattern: R_PLUS,        length: 1,      name: '+'           },

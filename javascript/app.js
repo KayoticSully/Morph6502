@@ -9,6 +9,7 @@ var api,
     lexer,
     parser,
     analysis,
+    codegen,
     logLevel,
     continuous,
     SpaceTree;
@@ -41,6 +42,7 @@ function init() {
     lexer       = new Lexer();
     parser      = new Parser();
     analysis    = new SemanticAnalysis();
+    codegen     = new 
     
     // load graphics library
     initInfoVis();

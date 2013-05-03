@@ -1,5 +1,5 @@
 /**
- * @file Houses the Parser class
+ * @file Houses the Semantic Analysis class
  * @author Ryan Sullivan
  * @version 20130226
  */
@@ -91,17 +91,25 @@ var SemanticAnalysis = function() {
                     checkType(node.children[0]);
                 break;
                 
+                case T_WHILE:
+                case T_IF:
+                    checkType(node.children[0]);
+                    checkNode(node.children[1]);
+                break;
+                
                 // assignment
                 case T_EQUALS:
                 // operation
                 case T_PLUS:
                 case T_MINUS:
+                case T_EQUALITY:
                     checkType(node);
                 break;
             }
         }
         
         function checkType(node){
+            console.log('a - ' + node.token.type);
             if(node.children.length == 0) {
                 // last node in expression!
                 return getType(node);
@@ -117,7 +125,13 @@ var SemanticAnalysis = function() {
                 if (rightType === false) {
                     return false;
                 } else if (leftType === rightType) {
-                    return leftType;
+                    // if the types that were checked are part of an equality
+                    // it will resolve to a boolean expression
+                    if (node.token.type === T_EQUALITY) {
+                        return T_BOOLEAN;
+                    } else {
+                        return leftType;
+                    }
                 } else {
                     // type mis-match!
                     // print error!
@@ -151,6 +165,11 @@ var SemanticAnalysis = function() {
                 
                 case T_QUOTE:
                     return T_STRING;
+                break;
+                
+                case T_TRUE:
+                case T_FALSE:
+                    return T_BOOLEAN;
                 break;
             }
             

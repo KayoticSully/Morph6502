@@ -56,7 +56,6 @@ function compile() {
     var symbolTable = parser.getSymbolTable();
     var ast         = parser.getAST();
     
-    
     //----------------------
     // Semantic Analysis
     //----------------------
@@ -68,6 +67,9 @@ function compile() {
         highlightErrorLines(analysisErrors);
         return false; // stop execution here
     }
+    
+    var hexCode = codegen.generate(ast);
+    
     
     
     //----------------------
