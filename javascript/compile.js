@@ -68,9 +68,9 @@ function compile() {
         return false; // stop execution here
     }
     
-    var hexCode = codegen.generate(ast);
-    
-    
+    var hexCode = codegen.generate(symbolTable, ast);
+    console.log("=== Compiled Code ===");
+    console.log(hexCode);
     
     //----------------------
     // Final Output

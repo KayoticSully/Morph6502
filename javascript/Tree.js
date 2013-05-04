@@ -1,7 +1,7 @@
 /**
  * @file A tree object used in CST's and AST's
  * @author Ryan Sullivan
- * @version 20130226
+ * @version 20130503
  * 
  * Based on the modifications by Alan G. Labouseur
  * on the 2009 work by Michael Ardizzone and Tim Smith.
@@ -30,6 +30,14 @@ var Node = function(name, token) {
     this.token = token;
     this.children = [];
     this.parent = {};
+}
+
+Node.prototype.getType = function() {
+    return this.token.type;
+}
+
+Node.prototype.getValue = function() {
+    return this.token.value;
 }
 
 /**

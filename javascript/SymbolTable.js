@@ -47,6 +47,7 @@ var Symbol = function(idToken, typeToken) {
     
     this.used = false;
     this.initialized = false;
+    this.tempId = null;
     
     Object.defineProperty(this, 'id', {
         writeable       : false,

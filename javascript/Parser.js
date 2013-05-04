@@ -450,9 +450,13 @@ var Parser = function() {
         var typeToken = tokenStream[0];
         var idToken   = tokenStream[1];
         
-        // token field is null here since this does not
-        // really have a token associated with it
-        AST.addNode('VarDecl', 'branch', null);
+        var varDeclToken = new Token();
+        varDeclToken.type = ST_DECLARATION;
+        varDeclToken.line = typeToken.line;
+        
+        // token field is a special token here since this does not
+        // really have a source code token associated with it
+        AST.addNode('VarDecl', 'branch', varDeclToken);
         
         if(parseType() && parseId('declared')) {
             // see if new variable declaration is in the symbol table

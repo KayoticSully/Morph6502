@@ -1,7 +1,7 @@
 /**
  * @file Houses all Token constants and the Token prototype
  * @author Ryan Sullivan
- * @version 20130223
+ * @version 20130502
  */
 
 //-----------------------------------
@@ -31,7 +31,8 @@ const
     T_SPACE           = 'T_SPACE',          /** @constant {String} T_SPACE */
     T_$               = 'T_$',              /** @constant {String} T_$ */
     // Control Tokens
-    CT_NEW_LINE       = 'CT_NEW_LINE';      /** @constant {String} CT_NEW_LINE */
+    CT_NEW_LINE       = 'CT_NEW_LINE',      /** @constant {String} CT_NEW_LINE */
+    ST_DECLARATION    = 'ST_DECLARATION';   /** @constant {String} ST_DECLARATION */
 
 //-----------------------------------
 // All Tokens / Terminals RegEx
@@ -96,6 +97,7 @@ var Tokens = {
     T_PLUS          : { pattern: R_PLUS,        length: 1,      name: '+'           },
     T_MINUS         : { pattern: R_MINUS,       length: 1,      name: '-'           },
     CT_NEW_LINE     : { pattern: R_NEW_LINE,    length: 1,      name: 'New Line'    }, // must appear before T_SPACE
+    
     T_SPACE         : { pattern: R_SPACE,       length: 1,      name: '[Space]'     },
     T_$             : { pattern: R_$,           length: 1,      name: '$'           },
 }

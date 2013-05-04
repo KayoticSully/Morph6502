@@ -42,7 +42,7 @@ function init() {
     lexer       = new Lexer();
     parser      = new Parser();
     analysis    = new SemanticAnalysis();
-    codegen     = new 
+    codegen     = new CodeGen();
     
     // load graphics library
     initInfoVis();
