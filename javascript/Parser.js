@@ -302,7 +302,6 @@ var Parser = function() {
      * Checks for the BooleanExpr production
      */
     function parseBooleanExpr() {
-        
         if (tokenType() == T_PAREN_OPEN) {
             return subBooleanExpr1();
         } else {
@@ -312,7 +311,14 @@ var Parser = function() {
     }
     
     function subBooleanExpr1() {
-        AST.addNode(Tokens[T_EQUALITY].name, 'branch', lookAhead(2));
+        // Kind of cheating.... but necessary
+        var token = new Token();
+        token.type = T_EQUALITY;
+        token.value = '==';
+        token.line = tokenLine();
+        
+        AST.addNode(Tokens[T_EQUALITY].name, 'branch', token);
+        
         if(checkToken(T_PAREN_OPEN) && parseExpr() && checkToken(T_EQUALITY) && parseExpr() && checkToken(T_PAREN_CLOSE)) {
             AST.endChildren();
             return true;

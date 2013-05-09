@@ -34,5 +34,16 @@ function toHex(data)
 	hex = "0" + hex;
     }
     
-    return hex;
+    return hex.toUpperCase();
+}
+
+function encodeToHex(str) {
+    var result = "";
+    for(index in str) {
+	var charCode = str.charCodeAt(index);
+	var hex = toHex(charCode);
+	result += hex;
+    }
+    
+    return result.toUpperCase();
 }

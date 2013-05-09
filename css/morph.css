@@ -332,11 +332,34 @@ button.hidden {
     opacity: 1;
 }
 
-
 #inputControls {
     float: left;
     width: 45%;
+    height: 582px;
     position: relative;
+}
+
+#compiledCode {
+    height: 0px;
+    width: 90%;
+    padding:10px;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0px;
+    left: 25px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.85);
+    text-align: left;
+    opacity: 0;
+    
+    -webkit-transition: opacity .3s, height .3s ease-in-out;
+    -moz-transition: opacity .3s, height .3s ease-in-out;
+    -o-transition: opacity .3s, height .3s ease-in-out;
+}
+
+#compiledCode.open {
+    height: 96%;
+    opacity: 1;
 }
 
 #appControls {

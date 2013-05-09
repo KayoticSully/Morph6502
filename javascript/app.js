@@ -128,6 +128,7 @@ function initInfoVis() {
         
         Edge: {
             type: 'bezier',
+            color: '#555',
             overridable: true
         },
         

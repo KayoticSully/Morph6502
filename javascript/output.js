@@ -19,6 +19,7 @@ function clearOutput() {
     $('#productions').removeClass('hidden');
     $('#output, #clearOutput').addClass('hidden');
     $('.lineselect').removeClass('lineselect');
+    $('#compiledCode').removeClass('open');
 }
 
 /**

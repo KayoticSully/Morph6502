@@ -72,6 +72,9 @@ function compile() {
     console.log("=== Compiled Code ===");
     console.log(hexCode);
     
+    $('#compiledCode').html(hexCode);
+    $('#compiledCode').addClass('open');
+    
     //----------------------
     // Final Output
     //----------------------

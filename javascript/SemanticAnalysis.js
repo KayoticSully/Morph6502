@@ -116,13 +116,13 @@ var SemanticAnalysis = function() {
             } else {
                 // get leftHand type
                 var leftHand = node.children[0];
-                var leftType = getType(leftHand);
+                var leftType = checkType(leftHand);
                 
                 // get rightHand
                 var rightHand = node.children[1];
                 var rightType = checkType(rightHand);
                 
-                if (rightType === false) {
+                if (rightType === false || leftType === false) {
                     return false;
                 } else if (leftType === rightType) {
                     // if the types that were checked are part of an equality
