@@ -227,6 +227,48 @@
                                 <li>
                                     ::== <b>{</b> StatementList <b>}</b>
                                 </li>
+                                <li>
+                                    ::== WhileStatement
+                                </li>
+                                <li>
+                                    ::== IfStatement
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- While Statement -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                WhileStatement
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>while</b> BooleanExpr <b>{</b>
+                                </li>
+                                <li>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; StatementList
+                                </li>
+                                <li>
+                                    &nbsp;&nbsp;&nbsp;&nbsp; <b>}</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- If Statement -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                IfStatement
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>if</b> BooleanExpr <b>{</b>
+                                </li>
+                                <li>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; StatementList
+                                </li>
+                                <li>
+                                    &nbsp;&nbsp;&nbsp;&nbsp; <b>}</b>
+                                </li>
                             </ul>
                         </li>
                         
@@ -256,6 +298,9 @@
                                 </li>
                                 <li>
                                     ::== StringExpr
+                                </li>
+                                <li>
+                                    ::== BooleanExpr
                                 </li>
                                 <li>
                                     ::== Id
@@ -290,6 +335,21 @@
                             </ul>
                         </li>
                         
+                        <!-- Boolean Expression -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                BooleanExpr
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>(</b> Expr <b>==</b> Expr <b>)</b>
+                                </li>
+                                <li>
+                                    ::== boolVal
+                                </li>
+                            </ul>
+                        </li>
+                        
                         <!-- Character List -->
                         <li class="rule clearfix">
                             <div class="production">
@@ -315,19 +375,7 @@
                             </div>
                             <ul class="expressions">
                                 <li>
-                                    ::== Type Id
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        <!-- Type -->
-                        <li class="rule clearfix">
-                            <div class="production">
-                                Type
-                            </div>
-                            <ul class="expressions">
-                                <li>
-                                    ::== <b>int</b> | <b>string</b>
+                                    ::== type Id
                                 </li>
                             </ul>
                         </li>
@@ -339,7 +387,19 @@
                             </div>
                             <ul class="expressions">
                                 <li>
-                                    ::== Char
+                                    ::== char
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Type -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                type
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>int</b> | <b>string</b> | <b>boolean</b>
                                 </li>
                             </ul>
                         </li>
@@ -347,7 +407,7 @@
                         <!-- Character -->
                         <li class="rule clearfix">
                             <div class="production">
-                                Char
+                                char
                             </div>
                             <ul class="expressions">
                                 <li>
@@ -376,6 +436,18 @@
                             <ul class="expressions">
                                 <li>
                                     ::== <b>1</b> | <b>2</b> | <b>3</b> ... <b>9</b> | <b>0</b>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <!-- Bool Val -->
+                        <li class="rule clearfix">
+                            <div class="production">
+                                boolVal
+                            </div>
+                            <ul class="expressions">
+                                <li>
+                                    ::== <b>false</b> | <b>true</b>
                                 </li>
                             </ul>
                         </li>

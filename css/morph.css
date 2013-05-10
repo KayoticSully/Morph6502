@@ -334,7 +334,7 @@ button.hidden {
 
 #inputControls {
     float: left;
-    width: 45%;
+    width: 46%;
     height: 582px;
     position: relative;
 }
@@ -413,6 +413,10 @@ button.hidden {
     Grammar Display
 */
 
+#productions {
+    font-size: 14px;
+}
+
 #productions, #output {
     -webkit-transition: opacity .3s ease-in-out;
     -moz-transition: opacity .3s ease-in-out;
@@ -425,18 +429,14 @@ button.hidden {
     font-family: "Inconsolata", monospace;
     float: left;
     margin:0% 2%;
-    font-size: 17px;
-    width: 51%;
+    font-size: 16px;
+    width: 48%;
     text-align: left;
     position: relative;
 }
 
 #grammar .rule {
-    margin: 6px 0px;
-}
-
-#grammar .rule:first-child {
-    margin-top:2px;
+    margin: 2px 0px;
 }
 
 #grammar .production {
