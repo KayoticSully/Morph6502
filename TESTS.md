@@ -279,3 +279,51 @@ $
     *   Warning: unused symbol a on line 5
 *   Error:
     *   4 : Type mis-match. Expected String found Integer
+
+Control Structures
+-----
+```
+{
+    boolean a
+    a = true
+    
+    if (a == true) {
+        print("it works")
+    }
+    
+    if true {
+        print("control block")
+    }
+
+    a = false
+    
+    if(a == true) {
+        print("should not print")
+    }
+}$
+```
+####Output
+*   No Errors
+
+```
+{
+    boolean a
+    a = ((true == false) == ((1 == 2) == true))
+    
+    if(a == ((5 == 5) == true)) {
+        print("boolean hell complete")
+    }
+}$
+```
+####Output
+*   No Errors
+
+```
+{
+    while true {
+        print("loop")
+    }
+}$
+```
+####Output
+*   No Errors

@@ -210,6 +210,7 @@ body {
 
 .hidden {
     opacity: 0;
+    z-index: -1;
 }
 
 button {
@@ -334,7 +335,7 @@ button.hidden {
 
 #inputControls {
     float: left;
-    width: 46%;
+    width: 45%;
     height: 582px;
     position: relative;
 }
@@ -414,7 +415,9 @@ button.hidden {
 */
 
 #productions {
-    font-size: 14px;
+    /*font-size: 14px;*/
+    height: 547px;
+    overflow: auto;
 }
 
 #productions, #output {
@@ -423,6 +426,7 @@ button.hidden {
     -o-transition: opacity .3s ease-in-out;
     position: absolute;
     width: 100%;
+    z-index: 999;
 }
 
 #grammar {
@@ -430,12 +434,16 @@ button.hidden {
     float: left;
     margin:0% 2%;
     font-size: 16px;
-    width: 48%;
+    width: 51%;
     text-align: left;
     position: relative;
 }
 
 #grammar .rule {
+    margin: 6px 0px;
+}
+
+#grammar .rule:first-child {
     margin: 2px 0px;
 }
 
