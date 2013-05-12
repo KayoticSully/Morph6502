@@ -737,6 +737,7 @@ var Parser = function() {
      */
     function expectedError(expected) {
         console.log(expected + " : " + tokenType());
+        console.log(Tokens[expected].name);
         // build error info
         var line = tokenLine();
         var error = "Expected " + Tokens[expected].name + ", found " + Tokens[tokenType()].name;

@@ -50,15 +50,27 @@ function CodeGen() {
         jumpTable       = [];
         stringTable     = [];
         
-        // compile
-        this.generateBlock(AST.root);
-        this.addCode('00'); // make sure program ends
+        // kick off
+        var root = AST.root;
+        if (root.getType() === T_BRACE_OPEN) {
+            this.generateBlock(root);
+        } else {
+            this.generateNode(root);
+        }
         
-        backPatch(); // replace temps
+        // make sure program ends
+        this.addCode('00');
         
+        // replace temps
+        backPatch(); 
+        
+        // DONE!!!
         return trim(compiledCode);
     }
     
+    /**
+     * Generate all statements within a block
+     */
     this.generateBlock = function(blockNode) {
         currentScope = blockNode.scope;
         var children = blockNode.children;
@@ -77,6 +89,9 @@ function CodeGen() {
         return code;
     }
     
+    /**
+     * Generate a specific Node
+     */
     this.generateNode = function(node) {
         var nodeType = node.getType();
         
@@ -96,6 +111,9 @@ function CodeGen() {
         }
     }
     
+    /**
+     * Make sure space is allocated for an identifier
+     */
     this.allocate = function(identifier) {
         // get symbol and assign tempId
         var symbol = currentScope.getSymbol(identifier, true);
@@ -110,6 +128,9 @@ function CodeGen() {
         return symbol.tempId;
     }
     
+    /**
+     * Make sure space is allocated for a specific string
+     */
     this.allocateString = function(string) {
         var length = string.length + 1;
         
@@ -327,36 +348,6 @@ function CodeGen() {
             }
             
             compiledCode = compiledCode.replace(jump.id, toHex(offset));
-            
-            //// figure out jump to and from locations
-            //var idIndex          = compiledCode.indexOf(jump.id);
-            //console.log(idIndex);
-            //var jumpIdLocation   = memoryLocationFromIndex(idIndex);
-            //var locationIndex    = compiledCode.indexOf(jump.location);
-            //console.log(locationIndex);
-            //var jumpToLocation   = memoryLocationFromIndex(locationIndex) - 1; // -1 because jumpIdLocation is
-            //                                                                   // taking up 2 mem slots but will be
-            //                                                                   // replaced by 1 slot
-            //// if jumping forward
-            //var offset = 0;
-            //if (jumpToLocation > jumpIdLocation) {
-            //    offset = jumpToLocation - jumpIdLocation - 1;
-            //}
-            //// jumping backward
-            //else {
-            //    // wrap around... the distance to the end, plus distance from the start.
-            //    offset = 255 - jumpIdLocation + jumpToLocation;
-            //}
-            //
-            //// now that everything is computed....
-            //var location = toHex(offset)
-            //
-            //// no global regex needed since... There can be only one!
-            //compiledCode = compiledCode.replace(jump.id, location);
-            //console.log("Replacing " + jump.id + " with " + location);
-            //
-            //// remove location placeholder everything SHOULD line up now
-            //compiledCode = compiledCode.replace(jump.location + " ", '');
         }
         
     }
