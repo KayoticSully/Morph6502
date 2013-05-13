@@ -100,6 +100,7 @@ var Tokens = {
     
     T_SPACE         : { pattern: R_SPACE,       length: 1,      name: '[Space]'     },
     T_$             : { pattern: R_$,           length: 1,      name: '$'           },
+    ST_DECLARATION  : { pattern: false,         length: 0,      name: 'Var Decl'    },
     false           : { name: 'false' }
 };
 

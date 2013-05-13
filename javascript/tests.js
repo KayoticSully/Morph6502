@@ -30,5 +30,6 @@ const Tests = {
     testDeclareBug: "{\n    int a\n    {\n        a = 5\n        string a\n    }\n}\n$",
     testControl1: "{\n    boolean a\n    a = true\n    \n    if (a == true) {\n        print(\"it works\")\n    }\n    \n    if true {\n        print(\"control block\")\n    }\n\n    a = false\n    \n    if(a == true) {\n        print(\"should not print\")\n    }\n}$",
     testBooleanHell: "{\n    boolean a\n    a = ((true == false) == ((1 == 2) == true))\n    \n    if(a == ((5 == 5) == true)) {\n        print(\"boolean hell complete\")\n    }\n}$",
-    testInfiniteLoop: "{\n    while true {\n        print(\"loop\")\n    }\n}$"
+    testInfiniteLoop: "{\n    while true {\n        print(\"loop\")\n    }\n}$",
+    testTooLong: "{\n    boolean a\n    a = ((true == false) == ((1 == 2) == true))\n    \n    if(a == ((5 == 5) == true)) {\n        print(\"this is going to print a lot\")\n        print(\" of strings to make this very\")\n        print(\" long and see if it can overload\")\n        print(\" the max length of an allowed\")\n        print(\" program\")\n    }\n}$"
 }

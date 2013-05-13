@@ -614,18 +614,6 @@ var Parser = function() {
             // log verbose data
             log("Got " + currentTokenType, 'info', true);
             
-            //// open or close scope if we see a brace
-            //switch (currentTokenType) {
-            //    case T_BRACE_OPEN:
-            //        symbolTable.openScope();
-            //    break;
-            //    
-            //    case T_BRACE_CLOSE:
-            //        symbolTable.closeScope();
-            //        //alert('close!');
-            //    break;
-            //}
-            
             // only consume the token if the type matches
             if(consume()) {
                 log("Token Consumed!", 'info', true);

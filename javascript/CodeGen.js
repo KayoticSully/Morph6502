@@ -35,8 +35,6 @@ function CodeGen() {
         }
     });
     
-    this.systemTempId = 'ST MP';
-    
     this.generate = function(symbolTable, AST) {
         // setup
         currentScope    = symbolTable.root;
@@ -49,6 +47,10 @@ function CodeGen() {
         symbolTemps     = [this.systemTempId];
         jumpTable       = [];
         stringTable     = [];
+        
+        log('-----------------------');
+        log('Code Generation', 'info');
+        log('-----------------------');
         
         // kick off
         var root = AST.root;
@@ -64,14 +66,26 @@ function CodeGen() {
         // replace temps
         backPatch(); 
         
-        // DONE!!!
-        return trim(compiledCode);
+        //trim
+        compiledCode = trim(compiledCode);
+        
+        // make sure program isnt too long
+        var length = memoryLocationFromIndex(compiledCode.length - 1);
+        
+        if (length > 255) {
+            log('Resulting code is too long.  Program will not run in Test OS', 'warning');
+        }
+        
+        return compiledCode;
     }
     
     /**
      * Generate all statements within a block
      */
     this.generateBlock = function(blockNode) {
+        
+        log("Entering new code block", 'info', true);
+        
         currentScope = blockNode.scope;
         var children = blockNode.children;
         var code = '';
@@ -95,16 +109,11 @@ function CodeGen() {
     this.generateNode = function(node) {
         var nodeType = node.getType();
         
+        console.log(node.getType());
+        log('Generating Code for Node ' + Tokens[node.getType()].name, 'info', true);
+        
         // Run specific generator for the node or return nothing
         if (nodeType in generators) {
-            // pick params
-            //var params = node;
-            
-           // if (node.children != undefined && node.children.length > 0) {
-           //     params = node.children;
-           // }
-            
-            // run and return generator result
             return generators[nodeType](node.children);
         } else {
             return '';

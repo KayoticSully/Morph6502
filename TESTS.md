@@ -230,8 +230,8 @@ $
 *   Error:
     *   8 : Redeclared Identifier a
 
-Other
------
+Semantic Analysis
+------------------
 ```
 {
     int a
@@ -280,8 +280,8 @@ $
 *   Error:
     *   4 : Type mis-match. Expected String found Integer
 
-Control Structures
------
+Code Generation Tests
+------------------
 ```
 {
     boolean a
@@ -305,6 +305,7 @@ Control Structures
 ####Output
 *   No Errors
 
+I am proud about this one, took me forever to get working.
 ```
 {
     boolean a
@@ -327,3 +328,22 @@ Control Structures
 ```
 ####Output
 *   No Errors
+
+This will compile, but will not run on test OS.  Will warn user.
+```
+{
+    boolean a
+    a = ((true == false) == ((1 == 2) == true))
+    
+    if(a == ((5 == 5) == true)) {
+        print("this is going to print a lot")
+        print(" of strings to make this very")
+        print(" long and see if it can overload")
+        print(" the max length of an allowed")
+        print(" program")
+    }
+}$
+```
+####Output
+*   Warnings
+    *   Resulting code is too long. Program will not run in Test OS

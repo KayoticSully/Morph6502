@@ -335,7 +335,7 @@ button.hidden {
 
 #inputControls {
     float: left;
-    width: 45%;
+    width: 51%;
     height: 582px;
     position: relative;
 }
@@ -434,7 +434,7 @@ button.hidden {
     float: left;
     margin:0% 2%;
     font-size: 16px;
-    width: 51%;
+    width: 45%;
     text-align: left;
     position: relative;
 }

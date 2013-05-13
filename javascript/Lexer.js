@@ -127,9 +127,13 @@ var Lexer = function() {
             }
             
             var pattern = Tokens[token].pattern;
-            if(pattern.test(str)) {
-                log('Found token ' + token, 'info', true);
-                return token;
+            try {
+                if(pattern.test(str)) {
+                    log('Found token ' + token, 'info', true);
+                    return token;
+                }   
+            } catch(e) {
+                return null;
             }
         }
         

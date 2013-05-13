@@ -69,8 +69,6 @@ function compile() {
     }
     
     var hexCode = codegen.generate(symbolTable, ast);
-    console.log("=== Compiled Code ===");
-    console.log(hexCode);
     
     $('#compiledCode').html(hexCode);
     $('#compiledCode').addClass('open');
