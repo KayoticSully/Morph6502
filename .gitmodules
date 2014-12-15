@@ -1,3 +1,6 @@
 [submodule "impress"]
 	path = impress
 	url = git://github.com/KayoticSully/impress.js.git
+[submodule "demo"]
+	path = demo
+	url = https://github.com/KayoticSully/Morph6502.git
